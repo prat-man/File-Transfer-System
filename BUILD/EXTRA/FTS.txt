@@ -1,0 +1,7 @@
+Welcome to File Transfer System (FTS) Installer by Pratanu Mandal.
+
+
+
+FTS is a simple HTTP file transfer service application.
+
+It uses Spring Boot and allows upload and download of files with no size or type limit.

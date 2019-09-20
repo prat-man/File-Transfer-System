@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE fts-config>
+<fts-config>
+	<port>8080</port>
+	<sandbox>./Sandbox</sandbox>
+	<show-folder-size>true</show-folder-size>
+	<credentials>
+		<credential>
+			<username>admin</username>
+			<password>admin</password>
+		</credential>
+	</credentials>
+</fts-config>

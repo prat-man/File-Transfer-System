@@ -1,0 +1,21 @@
+# depslib dependency file v1.0
+1566998602 source:d:\c\fts\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<signal.h>
+	<unistd.h>
+
+1566990783 source:d:\c\fts\resource.rc
+	<windows.h>
+
+1567191811 source:d:\codeblocks projects\fts\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<signal.h>
+	<unistd.h>
+
+1567626422 source:d:\codeblocks projects\fts\resource.rc
+	<windows.h>
+

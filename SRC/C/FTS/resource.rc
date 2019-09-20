@@ -1,0 +1,34 @@
+#include <windows.h> // include for version info constants
+
+// ICON
+A ICON MOVEABLE PURE LOADONCALL DISCARDABLE "icon.ico"
+
+// MANIFEST
+//1 24 "fts.manifest"
+
+// VERSIONINFO
+1 VERSIONINFO
+FILEVERSION 1,0,0,0
+PRODUCTVERSION 1,0,0,0
+FILETYPE VFT_APP
+{
+  BLOCK "StringFileInfo"
+	 {
+		 BLOCK "080904E4"
+		 {
+			 VALUE "CompanyName", "Pratanu Mandal"
+			 VALUE "FileVersion", ""
+			 VALUE "FileDescription", "File Transfer System"
+			 VALUE "InternalName", "File Transfer System"
+			 VALUE "LegalCopyright", "Pratanu Mandal (c) 2019"
+			 VALUE "LegalTrademarks", ""
+			 VALUE "OriginalFilename", "FTS.exe"
+			 VALUE "ProductName", "File Transfer System"
+			 VALUE "ProductVersion", "0.1"
+		 }
+	 }
+  BLOCK "VarFileInfo"
+	 {
+		 VALUE "Translation", 0x0809, 1252
+	 }
+}
