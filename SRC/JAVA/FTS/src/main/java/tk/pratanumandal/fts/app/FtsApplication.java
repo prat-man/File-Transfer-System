@@ -1,4 +1,4 @@
-package com.pramanda.fts.app;
+package tk.pratanumandal.fts.app;
 
 import java.io.File;
 
@@ -9,10 +9,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
-import com.pramanda.fts.util.FtsConstants;
+import tk.pratanumandal.fts.util.FtsConstants;
 
 @SpringBootApplication
-@ComponentScan(basePackages={"com.pramanda.fts"})
+@ComponentScan(basePackages={"tk.pratanumandal.fts"})
 public class FtsApplication {
 
 	public static void main(String[] args) {

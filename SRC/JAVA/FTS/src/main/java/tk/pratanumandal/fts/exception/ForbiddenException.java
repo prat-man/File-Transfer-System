@@ -1,4 +1,4 @@
-package com.pramanda.fts.exception;
+package tk.pratanumandal.fts.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

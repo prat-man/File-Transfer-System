@@ -1,4 +1,4 @@
-package com.pramanda.fts.bean;
+package tk.pratanumandal.fts.bean;
 
 import java.util.List;
 

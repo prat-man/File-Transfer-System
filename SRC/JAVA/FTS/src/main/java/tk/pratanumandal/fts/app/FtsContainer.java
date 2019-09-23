@@ -1,4 +1,4 @@
-package com.pramanda.fts.app;
+package tk.pratanumandal.fts.app;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,9 +14,9 @@ import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.stereotype.Component;
 
-import com.pramanda.fts.bean.FtsConfig;
-import com.pramanda.fts.util.FtsConfigLoader;
-import com.pramanda.fts.util.FtsConstants;
+import tk.pratanumandal.fts.bean.FtsConfig;
+import tk.pratanumandal.fts.util.FtsConfigLoader;
+import tk.pratanumandal.fts.util.FtsConstants;
 
 @Component
 public class FtsContainer implements WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> {

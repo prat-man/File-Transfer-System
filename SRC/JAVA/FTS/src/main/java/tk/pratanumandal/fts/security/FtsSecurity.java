@@ -1,4 +1,4 @@
-package com.pramanda.fts.security;
+package tk.pratanumandal.fts.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,8 +9,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.pramanda.fts.bean.FtsConfig.Credentials.Credential;
-import com.pramanda.fts.util.FtsConstants;
+import tk.pratanumandal.fts.bean.FtsConfig.Credentials.Credential;
+
+import tk.pratanumandal.fts.util.FtsConstants;
 
 @Configuration
 public class FtsSecurity extends WebSecurityConfigurerAdapter {

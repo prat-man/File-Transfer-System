@@ -1,4 +1,4 @@
-package com.pramanda.fts.app;
+package tk.pratanumandal.fts.app;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

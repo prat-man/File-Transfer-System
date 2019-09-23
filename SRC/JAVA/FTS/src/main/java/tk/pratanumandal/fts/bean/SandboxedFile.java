@@ -1,12 +1,12 @@
-package com.pramanda.fts.bean;
+package tk.pratanumandal.fts.bean;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import com.pramanda.fts.util.CommonUtils;
-import com.pramanda.fts.util.FtsConstants;
+import tk.pratanumandal.fts.util.CommonUtils;
+import tk.pratanumandal.fts.util.FtsConstants;
 
 public class SandboxedFile {
 

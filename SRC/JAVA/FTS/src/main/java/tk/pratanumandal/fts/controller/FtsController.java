@@ -1,4 +1,4 @@
-package com.pramanda.fts.controller;
+package tk.pratanumandal.fts.controller;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -40,13 +40,13 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.pramanda.fts.bean.SandboxedFile;
-import com.pramanda.fts.exception.ResourceNotFoundException;
-import com.pramanda.fts.exception.ForbiddenException;
-import com.pramanda.fts.exception.InvalidFileNameException;
-import com.pramanda.fts.util.CommonUtils;
-import com.pramanda.fts.util.FtsConstants;
-import com.pramanda.fts.util.ZipFiles;
+import tk.pratanumandal.fts.bean.SandboxedFile;
+import tk.pratanumandal.fts.exception.ForbiddenException;
+import tk.pratanumandal.fts.exception.InvalidFileNameException;
+import tk.pratanumandal.fts.exception.ResourceNotFoundException;
+import tk.pratanumandal.fts.util.CommonUtils;
+import tk.pratanumandal.fts.util.FtsConstants;
+import tk.pratanumandal.fts.util.ZipFiles;
 
 @Controller
 public class FtsController {

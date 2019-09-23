@@ -1,4 +1,4 @@
-package com.pramanda.fts.util;
+package tk.pratanumandal.fts.util;
 
 import java.io.File;
 
@@ -6,7 +6,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import com.pramanda.fts.bean.FtsConfig;
+import tk.pratanumandal.fts.bean.FtsConfig;
 
 public class FtsConfigLoader {
 	
