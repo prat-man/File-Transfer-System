@@ -60,7 +60,9 @@ public class FileSystemRepository implements FileSystemListener {
 	            if (children != null) {
 	                for (File child : children) {
 	                	BigInteger childLength = fileLengthMap.get(child.getAbsolutePath());
-	                	length = length.add(childLength);
+	                	if (childLength != null) {
+	                		length = length.add(childLength);
+	                	}
 	                }
 	            }
 	            return length;
