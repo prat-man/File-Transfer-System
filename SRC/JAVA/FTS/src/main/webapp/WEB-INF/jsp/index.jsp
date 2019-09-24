@@ -8,7 +8,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html lang="en">
 <head>
-	<title>File Transfer Service</title>
+	<title>File Transfer System</title>
 	
 	<link rel="icon" type="image/x-icon" href="favicon.ico">
 

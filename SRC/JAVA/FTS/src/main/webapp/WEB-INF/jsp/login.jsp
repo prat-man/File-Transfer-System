@@ -4,7 +4,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
 <head>
-	<title>File Transfer Service | Login</title>
+	<title>File Transfer System | Login</title>
 	
 	<link rel="icon" type="image/x-icon" href="favicon.ico">
 	

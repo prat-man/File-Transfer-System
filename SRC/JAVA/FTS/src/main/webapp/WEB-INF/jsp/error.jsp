@@ -3,7 +3,7 @@
 <%@page trimDirectiveWhitespaces="true"%>
 <html lang="en">
 <head>
-	<title>File Transfer Service | Error</title>
+	<title>File Transfer System | Error</title>
 	
 	<link rel="icon" type="image/x-icon" href="favicon.ico">
 	
