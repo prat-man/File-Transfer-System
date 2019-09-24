@@ -70,6 +70,12 @@ public class FileSystemMonitor extends Thread {
             	}
             	return super.visitFile(file, attrs);
             }
+            
+            @Override
+            public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+            	// skip subtree if file visit failed
+            	return FileVisitResult.SKIP_SUBTREE;
+            }
         });
     }
  
