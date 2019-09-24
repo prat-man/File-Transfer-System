@@ -83,7 +83,7 @@ public class FtsController {
 	}
 	
 	@GetMapping("/")
-	public String index(@PathParam("path") String path, Map<String, Object> model) {
+	public String index(@PathParam("path") String path, Map<String, Object> model) throws IOException {
 		
 		path = validatePath(path);
 
