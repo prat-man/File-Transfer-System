@@ -12,6 +12,10 @@ import tk.pratanumandal.fts.filesystem.FileSystemRepository;
 public class CommonUtils {
 	
 	public static String getFileSize(File file) throws IOException {
+		if (!FtsConstants.SHOW_FOLDER_SIZE && file.isDirectory()) {
+			return new String();
+		}
+		
 		BigInteger integerLength = FileSystemRepository.getFileSize(file);
 		
 		final AtomicInteger radix = new AtomicInteger(0);
