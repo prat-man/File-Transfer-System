@@ -38,10 +38,13 @@ public class FileSystemRepository implements FileSystemListener {
 
 	@Override
 	public void fileModified(Path path) {
+		// update upto root (exclusive)
 		while (path.compareTo(Paths.get(FtsConstants.SANDBOX_FOLDER)) != 0) {
 			this.fileLengthMap.put(path.toString(), getFileSizeInit(path.toFile()));
 			path = path.getParent();
 		}
+		// update root
+		this.fileLengthMap.put(path.toString(), getFileSizeInit(path.toFile()));
 	}
 
 	@Override
