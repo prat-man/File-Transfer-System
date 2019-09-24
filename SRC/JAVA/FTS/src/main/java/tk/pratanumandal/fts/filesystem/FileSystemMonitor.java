@@ -93,7 +93,6 @@ public class FileSystemMonitor extends Thread {
  
             Path dir = keys.get(key);
             if (dir == null) {
-                System.err.println("WatchKey not recognized!");
                 continue;
             }
  
@@ -104,6 +103,10 @@ public class FileSystemMonitor extends Thread {
                 // Context for directory entry event is the file name of entry
                 @SuppressWarnings("unchecked")
                 Path name = ((WatchEvent<Path>)event).context();
+                if (name == null) {
+                    continue;
+                }
+                
                 Path child = dir.resolve(name);
  
                 if (kind == ENTRY_CREATE) {
