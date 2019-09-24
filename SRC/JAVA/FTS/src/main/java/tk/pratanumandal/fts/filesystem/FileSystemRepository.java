@@ -27,6 +27,8 @@ public class FileSystemRepository implements FileSystemListener {
 		this.fsm.addListener(this);
 		
 		this.fsm.init(Paths.get(FtsConstants.SANDBOX_FOLDER));
+		
+		this.fsm.start();
 	}
 
 	@Override
@@ -66,13 +68,16 @@ public class FileSystemRepository implements FileSystemListener {
 		}
 	}
 	
-	public static BigInteger getFileSize(File file) throws IOException {
+	public BigInteger getFileSize(File file) {
+		// return the file size
+		return this.fileLengthMap.get(file.getAbsolutePath());
+	}
+	
+	public static FileSystemRepository getInstance() throws IOException {
 		if (instance == null) {
 			instance = new FileSystemRepository();
 		}
-		
-		// return the file size
-		return instance.fileLengthMap.get(file.getAbsolutePath());
+		return instance;
 	}
 	
 	public static void kill() {

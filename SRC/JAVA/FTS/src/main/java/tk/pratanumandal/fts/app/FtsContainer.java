@@ -15,6 +15,7 @@ import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerF
 import org.springframework.stereotype.Component;
 
 import tk.pratanumandal.fts.bean.FtsConfig;
+import tk.pratanumandal.fts.filesystem.FileSystemRepository;
 import tk.pratanumandal.fts.util.FtsConfigLoader;
 import tk.pratanumandal.fts.util.FtsConstants;
 
@@ -73,6 +74,14 @@ public class FtsContainer implements WebServerFactoryCustomizer<ConfigurableServ
 			Files.createDirectories(Paths.get(FtsConstants.SANDBOX_FOLDER));
 		} catch (IOException e) {
 			logger.error("An error occurred when trying to create sandbox folder");
+			e.printStackTrace();
+		}
+		
+		try {
+			FileSystemRepository.getInstance();
+			logger.info("File system monitor started");
+		} catch (IOException e) {
+			logger.error("An error occurred when trying to initialize file system repository");
 			e.printStackTrace();
 		}
 		

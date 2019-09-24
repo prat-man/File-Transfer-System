@@ -16,7 +16,9 @@ public class CommonUtils {
 			return new String();
 		}
 		
-		BigInteger integerLength = FileSystemRepository.getFileSize(file);
+		FileSystemRepository fsr = FileSystemRepository.getInstance();
+		
+		BigInteger integerLength = fsr.getFileSize(file);
 		
 		final AtomicInteger radix = new AtomicInteger(0);
         final BigDecimal BLOCK_SIZE = new BigDecimal(getFileSizeBlocks());
