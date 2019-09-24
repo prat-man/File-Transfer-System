@@ -29,6 +29,7 @@ public class FileSystemMonitor extends Thread {
         this.keys = new HashMap<>();
         this.listeners = new ArrayList<>();
         this.kill = false;
+        this.setDaemon(true);
     }
     
     public void init(Path dir) throws IOException {
@@ -92,7 +93,7 @@ public class FileSystemMonitor extends Thread {
  
             Path dir = keys.get(key);
             if (dir == null) {
-                System.err.println("WatchKey not recognized!!");
+                System.err.println("WatchKey not recognized!");
                 continue;
             }
  

@@ -81,16 +81,15 @@ public class FileSystemRepository implements FileSystemListener {
 		return this.fileLengthMap.get(file.getAbsolutePath());
 	}
 	
+	public void destroy() {
+		this.fsm.kill();
+	}
+	
 	public static FileSystemRepository getInstance() throws IOException {
 		if (instance == null) {
 			instance = new FileSystemRepository();
 		}
 		return instance;
-	}
-	
-	public static void kill() {
-		instance.fsm.kill();
-		instance = null;
 	}
 	
 }
