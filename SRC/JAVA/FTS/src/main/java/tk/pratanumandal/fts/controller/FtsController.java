@@ -287,12 +287,16 @@ public class FtsController {
 		}
 		
 		try {
-			// First, remove files from into the folder 
-			FileUtils.cleanDirectory(file);
-
-			// Then, remove the folder
-			FileUtils.deleteDirectory(file);
-			
+			if (file.isDirectory()) {
+				// remove files from into the folder 
+				FileUtils.cleanDirectory(file);
+				// remove the folder
+				FileUtils.deleteDirectory(file);
+			}
+			else {
+				// delete file
+				Files.delete(Paths.get(file.getAbsolutePath()));
+			}
 		} catch (IOException e) {
 			logger.error("An error occurred when trying to delete file/folder: " + path);
 			e.printStackTrace();
