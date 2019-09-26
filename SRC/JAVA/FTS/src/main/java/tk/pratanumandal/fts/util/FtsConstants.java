@@ -19,7 +19,7 @@ public class FtsConstants {
 	
 	public static boolean SHOW_FOLDER_SIZE = true;
 	
-	public static boolean VERBOSE = true;
+	public static boolean VERBOSE = false;
 	
 	
 	private static String getDefaultConfigLocation() {
