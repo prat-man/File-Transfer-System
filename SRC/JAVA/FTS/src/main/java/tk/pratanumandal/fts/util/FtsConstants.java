@@ -19,6 +19,8 @@ public class FtsConstants {
 	
 	public static boolean SHOW_FOLDER_SIZE = true;
 	
+	public static boolean VERBOSE = true;
+	
 	
 	private static String getDefaultConfigLocation() {
 		return new File("config.xml").getAbsolutePath();

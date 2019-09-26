@@ -1,6 +1,8 @@
 package tk.pratanumandal.fts.filesystem;
 
-import static java.nio.file.StandardWatchEventKinds.*;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_DELETE;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -17,35 +19,35 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FileSystemMonitor extends Thread {
-
-    private final WatchService watcher;
-    private final Map<WatchKey, Path> keys;
-    private final ArrayList<FileSystemListener> listeners;
+	
+	protected final WatchService watcher;
+    protected final Map<WatchKey, Path> keys;
+    protected final ArrayList<FileSystemListener> listeners;
     
-    private boolean kill;
+    protected boolean kill;
     
-    public FileSystemMonitor() throws IOException {
+	public FileSystemMonitor() throws IOException {
         this.watcher = FileSystems.getDefault().newWatchService();
         this.keys = new HashMap<>();
         this.listeners = new ArrayList<>();
         this.kill = false;
         this.setDaemon(true);
     }
-    
+
     public void init(Path dir) throws IOException {
     	this.walkAndRegisterDirectories(dir);
     }
-    
+	
     public void addListener(FileSystemListener listener) {
     	this.listeners.add(listener);
     }
-    
-    private void registerDirectory(Path dir) throws IOException {
-        WatchKey key = dir.register(watcher, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
+	
+	protected void registerDirectory(Path dir) throws IOException {
+        WatchKey key = dir.register(watcher, new WatchEvent.Kind[] {ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY});
         keys.put(key, dir);
     }
-    
-    private void walkAndRegisterDirectories(final Path start) throws IOException {
+	
+	protected void walkAndRegisterDirectories(final Path start) throws IOException {
         // register directory and sub-directories
         Files.walkFileTree(start, new SimpleFileVisitor<Path>() {
             @Override
@@ -79,8 +81,12 @@ public class FileSystemMonitor extends Thread {
             }
         });
     }
- 
-    @Override
+	
+	public void kill() {
+    	this.kill = true;
+    }
+	
+	@Override
 	public void run() {
         while (!kill) {
             // wait for key to be signalled
@@ -113,7 +119,7 @@ public class FileSystemMonitor extends Thread {
                 	// if directory is created, and watching recursively, then register it and its sub-directories
                     try {
                         if (Files.isDirectory(child)) {
-                            walkAndRegisterDirectories(child);
+                            this.walkAndRegisterDirectories(child);
                         }
                     } catch (IOException e) {
                     	e.printStackTrace();
@@ -149,9 +155,5 @@ public class FileSystemMonitor extends Thread {
             }
         }
     }
-    
-    public void kill() {
-    	this.kill = true;
-    }
-    
+	
 }

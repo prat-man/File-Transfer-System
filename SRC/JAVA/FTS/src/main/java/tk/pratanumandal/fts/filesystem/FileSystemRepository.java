@@ -8,6 +8,8 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.SystemUtils;
+
 import tk.pratanumandal.fts.util.FtsConstants;
 
 public class FileSystemRepository implements FileSystemListener {
@@ -22,7 +24,11 @@ public class FileSystemRepository implements FileSystemListener {
 	private FileSystemRepository() throws IOException {
 		this.fileLengthMap = new HashMap<>();
 		
-		this.fsm = new FileSystemMonitor();
+		if (SystemUtils.IS_OS_WINDOWS) {
+			this.fsm = new FileSystemMonitorWindows();
+		} else {
+			this.fsm = new FileSystemMonitor();
+		}
 		
 		this.fsm.addListener(this);
 		
@@ -33,11 +39,17 @@ public class FileSystemRepository implements FileSystemListener {
 
 	@Override
 	public void fileCreated(Path path) {
+		if (FtsConstants.VERBOSE) {
+			System.out.println("File Created: " + path);
+		}
 		this.fileLengthMap.put(path.toString(), getFileSizeInit(path.toFile()));
 	}
 
 	@Override
 	public void fileModified(Path path) {
+		if (FtsConstants.VERBOSE) {
+			System.out.println("File Modified: " + path);
+		}
 		// update upto root (exclusive)
 		while (path.compareTo(Paths.get(FtsConstants.SANDBOX_FOLDER)) != 0) {
 			this.fileLengthMap.put(path.toString(), getFileSizeInit(path.toFile()));
@@ -49,6 +61,9 @@ public class FileSystemRepository implements FileSystemListener {
 
 	@Override
 	public void fileDeleted(Path path) {
+		if (FtsConstants.VERBOSE) {
+			System.out.println("File Deleted: " + path);
+		}
 		this.fileLengthMap.remove(path.toString());
 	}
 	

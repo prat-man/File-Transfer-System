@@ -60,6 +60,18 @@ public class FtsContainer implements WebServerFactoryCustomizer<ConfigurableServ
 					}
 				}
 				
+				if (config.getVerbose() != null) {
+					if (config.getVerbose().equalsIgnoreCase("true")) {
+						FtsConstants.VERBOSE = true;
+					}
+					else if (config.getVerbose().equalsIgnoreCase("false")) {
+						FtsConstants.VERBOSE = false;
+					}
+					else {
+						throw new InvalidParameterException("Element 'verbose' can only be 'true' or 'false'. Unrecognized value: " + config.getVerbose());
+					}
+				}
+				
 				logger.info("Configuration file loaded");
 			} catch (JAXBException | InvalidParameterException e) {
 				logger.error("An error occurred when trying to load configuration file");

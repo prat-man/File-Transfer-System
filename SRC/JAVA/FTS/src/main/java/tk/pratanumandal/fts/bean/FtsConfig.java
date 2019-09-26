@@ -20,6 +20,8 @@ public class FtsConfig {
 	@XmlElement(name="show-folder-size")
 	private String showFolderSize;
 	
+	private String verbose;
+	
 	public int getPort() {
 		return port;
 	}
@@ -50,6 +52,14 @@ public class FtsConfig {
 
 	public void setShowFolderSize(String showFolderSize) {
 		this.showFolderSize = showFolderSize;
+	}
+	
+	public String getVerbose() {
+		return verbose;
+	}
+
+	public void setVerbose(String verbose) {
+		this.verbose = verbose;
 	}
 
 	@XmlRootElement(name="credentials")
