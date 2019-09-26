@@ -20,6 +20,7 @@ public class FileSystemMonitorWindows extends FileSystemMonitor {
     
     @Override
     public void init(Path dir) throws IOException {
+    	this.registerDirectory(dir);
     	this.walkAndLoadDirectories(dir);
     }
     
