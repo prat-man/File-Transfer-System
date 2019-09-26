@@ -24,7 +24,6 @@ import javax.swing.Icon;
 import javax.swing.filechooser.FileSystemView;
 import javax.websocket.server.PathParam;
 
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -286,12 +285,11 @@ public class FtsController {
 			throw new ResourceNotFoundException("The requested file or folder was not found on the server");
 		}
 		
-		try {
-			// delete file or directory
-			FileUtils.forceDelete(file);
-		} catch (IOException e) {
+		// delete file or directory
+		boolean deleted = CommonUtils.deleteFile(file);
+		
+		if (!deleted) {
 			logger.error("An error occurred when trying to delete file/folder: " + path);
-			e.printStackTrace();
 			throw new RuntimeException("Failed to delete file/folder: '" + path + "'");
 		}
 		

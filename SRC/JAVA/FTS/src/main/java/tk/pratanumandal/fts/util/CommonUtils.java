@@ -43,6 +43,16 @@ public class CommonUtils {
         }
 	}
 	
+	public static boolean deleteFile(File file) {
+		if (file.isDirectory()) {
+			File[] children = file.listFiles();
+			for (File child : children) {
+				deleteFile(child);
+			}
+		}
+		return file.delete();
+	}
+	
 	private static int getFileSizeBlocks() {
 		String OS = System.getProperty("os.name").toLowerCase();
 		if (OS.contains("windows")) return 1024;
