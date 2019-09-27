@@ -27,6 +27,7 @@ import javax.websocket.server.PathParam;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -280,12 +281,19 @@ public class FtsController {
 			throw new ResourceNotFoundException("The requested file or folder was not found on the server");
 		}
 		
-		// delete file or directory
-		boolean deleted = CommonUtils.deleteFile(file);
-		
-		if (!deleted) {
+		try {
+			// delete file or directory
+			boolean deleted = CommonUtils.deleteFile(file);
+			
+			if (!deleted) {
+				logger.error("An error occurred when trying to delete file/folder: " + path);
+				throw new RuntimeException("Failed to delete file/folder: \"" + path + "\"");
+			}
+		}
+		catch (AccessDeniedException e) {
 			logger.error("An error occurred when trying to delete file/folder: " + path);
-			throw new RuntimeException("Failed to delete file/folder: '" + path + "'");
+			e.printStackTrace();
+			throw new RuntimeException("Failed to delete file/folder: \"" + path + "\"");
 		}
 		
 		response.setStatus(200);

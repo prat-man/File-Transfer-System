@@ -7,6 +7,8 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.springframework.security.access.AccessDeniedException;
+
 import tk.pratanumandal.fts.filesystem.FileSystemRepository;
 
 public class CommonUtils {
@@ -46,6 +48,9 @@ public class CommonUtils {
 	public static boolean deleteFile(File file) {
 		if (file.isDirectory()) {
 			File[] children = file.listFiles();
+			if (children == null) {
+				throw new AccessDeniedException("Access denied when trying to delete folder: " + file.getName());
+			}
 			for (File child : children) {
 				deleteFile(child);
 			}

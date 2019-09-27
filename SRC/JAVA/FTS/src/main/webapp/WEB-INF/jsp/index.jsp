@@ -171,7 +171,7 @@
 	
 	<br>
 	
-	<div style="text-align: center; border: none; font-size: 14px; padding-top: 8px;">
+	<div style="text-align: center; border: none; font-size: 14px; padding-top: 8px; padding-bottom: 5px;">
 		<span>Please consider using <b>Mozilla Firefox</b> or <b>Google Chrome</b> for the best experience</span>
 	</div>
 
