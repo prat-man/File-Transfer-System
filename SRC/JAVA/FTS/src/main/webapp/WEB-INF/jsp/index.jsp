@@ -3,6 +3,7 @@
 <%@page trimDirectiveWhitespaces="true"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.util.StringTokenizer"%>
+<%@page import="tk.pratanumandal.fts.util.FtsConstants"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -89,7 +90,9 @@
 								</c:otherwise>
 							</c:choose>
 							<td style="text-align: right;"><span style="white-space: nowrap;">${file.getSize()}</span></td>
-							<td><a onclick="deleteFile('${file.getName()}', '${file.getEncodedPath()}')">Delete</a></td>
+							<c:if test="${FtsConstants.DELETE}">
+								<td><a onclick="deleteFile('${file.getName()}', '${file.getEncodedPath()}')">Delete</a></td>
+							</c:if>
 							<td><a href="/download?path=${file.getEncodedPath()}">Download</a></td>
 						</tr>
 					</c:forEach>

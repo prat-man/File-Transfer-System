@@ -60,6 +60,18 @@ public class FtsContainer implements WebServerFactoryCustomizer<ConfigurableServ
 					}
 				}
 				
+				if (config.getDelete() != null) {
+					if (config.getDelete().equalsIgnoreCase("allow")) {
+						FtsConstants.DELETE = true;
+					}
+					else if (config.getDelete().equalsIgnoreCase("disallow")) {
+						FtsConstants.DELETE = false;
+					}
+					else {
+						throw new InvalidParameterException("Element 'delete' can only be 'allow' or 'disallow'. Unrecognized value: " + config.getDelete());
+					}
+				}
+				
 				if (config.getVerbose() != null) {
 					if (config.getVerbose().equalsIgnoreCase("true")) {
 						FtsConstants.VERBOSE = true;

@@ -259,6 +259,12 @@ public class FtsController {
 	@DeleteMapping("/delete")
 	public void deleteFile(@PathParam("path") String path, HttpServletResponse response) {
 		
+		if (!FtsConstants.DELETE) {
+			String ipAddress = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getRemoteAddr();
+			logger.warn("An attempt was made to delete files / folders from IP: " + ipAddress);
+			throw new ForbiddenException("Deletion of files and folders is forbidden");
+		}
+		
 		path = validatePath(path);
 		
 		if (path.equals(new String())) {
