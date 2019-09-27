@@ -104,7 +104,10 @@ span.heading {
 #browser {
 	max-height: 400px;
 	overflow: auto;
-	padding: 10px 0 10px 0;
+}
+
+#browser table {
+	margin: 10px 0 10px 0;
 }
 
 input[type="button"].alert {
