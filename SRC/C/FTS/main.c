@@ -59,7 +59,11 @@ void init() {
 void run() {
     // display IP address
     printf("--------------------------------------------------------------------------------\n");
+#ifdef _WIN32
     system("ipconfig | findstr IPv4");
+#else
+    system("printf \"IP Address: \" && hostname -I");
+#endif
     printf("--------------------------------------------------------------------------------\n\n");
 
 #ifdef _WIN32
