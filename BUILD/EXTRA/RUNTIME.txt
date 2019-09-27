@@ -1,1 +1,1 @@
-jlink --no-header-files --no-man-pages --compress=1 --strip-debug --add-modules java.desktop,java.sql,java.instrument,java.management,java.security.jgss --output java-runtime
+jlink --no-header-files --no-man-pages --compress=1 --strip-debug --add-modules java.desktop,java.sql,java.instrument,java.management,java.security.jgss,jdk.unsupported --output java-runtime
