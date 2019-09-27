@@ -235,8 +235,6 @@ public class FtsController {
 		Icon icon = FileSystemView.getFileSystemView().getSystemIcon(file);
 
 		if (icon != null) {
-			File tempFile = File.createTempFile("fts-", ".png");
-
 			BufferedImage bi = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(),
 					BufferedImage.TYPE_INT_ARGB);
 
@@ -244,26 +242,17 @@ public class FtsController {
 			icon.paintIcon(null, g2d, 0, 0);
 			g2d.dispose();
 
-			ImageIO.write(bi, "png", tempFile);
-
-			tempFile.deleteOnExit();
-
 			response.setContentType("image/png");
-			response.setContentLength((int) tempFile.length());
 			response.setHeader("Content-Transfer-Encoding", "binary");
-			response.setHeader("Content-Disposition", "attachment; filename=\"" + tempFile.getName());
+			response.setHeader("Content-Disposition", "attachment; filename=\"icon.png\"");
 
 			try {
-				FileInputStream is = new FileInputStream(tempFile);
-				IOUtils.copy(is, response.getOutputStream());
+				ImageIO.write(bi, "png", response.getOutputStream());
 				response.flushBuffer();
-				is.close();
 			} catch (IOException ex) {
 				logger.error("An error occurred when trying to access icon for path: " + path);
 				throw new RuntimeException("IOError writing file to output stream");
 			}
-
-			tempFile.delete();
 		}
 	}
 	
