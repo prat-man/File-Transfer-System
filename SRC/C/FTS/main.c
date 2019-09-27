@@ -22,8 +22,13 @@ int main() {
 }
 
 void init() {
+#ifdef _WIN32
     // set window title
     system("title File Transfer System");
+#else
+    // set window title
+    system("echo \"\033]0;File Transfer System\a\"");
+#endif
 
     // allow only one instance
     if (access(LOCK, F_OK) != -1) {
