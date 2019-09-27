@@ -19,3 +19,13 @@
 1567626422 source:d:\codeblocks projects\fts\resource.rc
 	<windows.h>
 
+1569013794 source:d:\file transfer system\src\c\fts\resource.rc
+	<windows.h>
+
+1569605008 source:d:\file transfer system\src\c\fts\main.c
+	<stdio.h>
+	<stdlib.h>
+	<signal.h>
+	<unistd.h>
+	<conio.h>
+

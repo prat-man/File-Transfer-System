@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
 #include <signal.h>
 #include <unistd.h>
+
+#ifdef CONIO_H
+#include <conio.h>
+#endif
 
 #define LOCK "fts.lock"
 
@@ -40,7 +43,12 @@ void init() {
 
     // set up signals
     signal(SIGINT, handleSignal);
+#ifdef SIGHUP
+    signal(SIGHUP, handleSignal);
+#endif
+#ifdef SIGBREAK
     signal(SIGBREAK, handleSignal);
+#endif
 }
 
 void run() {
@@ -49,11 +57,26 @@ void run() {
     system("ipconfig | findstr IPv4");
     printf("--------------------------------------------------------------------------------\n\n");
 
+#ifdef _WIN32
     // execute application
-    system("java-runtime\\bin\\java -jar fts-0.0.1-SNAPSHOT.war");
+    int code = system("java-runtime\\bin\\java -jar fts-0.0.1-SNAPSHOT.war");
+#else
+    // execute application
+    int code = system("java-runtime/bin/java -jar fts-0.0.1-SNAPSHOT.war");
+#endif
 
+    // delete locks
+    onClose();
+
+#ifdef WTERMSIG
+    if (!WTERMSIG(code)) {
+        // hold the screen
+        holdScreen();
+    }
+#else
     // hold the screen
     holdScreen();
+#endif
 }
 
 void onClose() {
@@ -67,7 +90,13 @@ void handleSignal(int signal) {
 }
 
 void holdScreen() {
+#ifdef CONIO_H
     // display message and wait for any key
     printf("\n\nPress any key to exit ...");
     getch();
+#else
+    // display message and wait for ENTER key
+    printf("\n\nPress ENTER to exit ...");
+    getchar();
+#endif
 }
