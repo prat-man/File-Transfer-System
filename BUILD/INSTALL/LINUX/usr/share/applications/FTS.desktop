@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=FTS
+Comment=File Transfer System
+Exec=gnome-terminal -e "/opt/FTS/FTS"
+Icon=/opt/FTS/FTS.png
+Terminal=false
+Type=Application
+Categories=Application;Network;Utility;

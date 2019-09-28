@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE fts-config>
+<fts-config>
+
+    <!-- Port to be used by FTS -->
+    <!-- If unspecified, uses port 80 -->
+    <!-- Here port 8080 is specified since port 80 might not be available on most systems -->
+	<port>8080</port>
+
+    <!-- Sandbox folder location -->
+    <!-- If unspecified creates "Sandbox" folder in home directory -->
+	<!-- <sandbox>./Sandbox</sandbox> -->
+
+    <!-- Show folder size or not; can be true or false -->
+    <!-- If unspecified, true -->
+	<show-folder-size>true</show-folder-size>
+
+    <!-- Allow file/folder delete or not; can be allow or disallow -->
+    <!-- If unspecified, allow -->
+	<delete>allow</delete>
+
+    <!-- Verbose output or not; can be true or false -->
+    <!-- If unspecified, false -->
+    <verbose>false</verbose>
+
+    <!-- Credentials list -->
+    <!-- If unspecified uses admin/admin -->
+	<!--
+    <credentials>
+		<credential>
+			<username>username1</username>
+			<password>password1</password>
+		</credential>
+        <credential>
+			<username>username2</username>
+			<password>password2</password>
+		</credential>
+	</credentials>
+    -->
+
+</fts-config>
+

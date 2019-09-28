@@ -1,0 +1,4 @@
+# copy LINUX directory to some ext4 partition
+# fails on NTFS partitions
+
+sudo chmod -R 0755 LINUX/DEBIAN && dpkg-deb --build LINUX FTS_0.0-1.deb
