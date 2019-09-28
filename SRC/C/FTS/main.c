@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <signal.h>
 #include <unistd.h>
+#include <string.h>
+#include <limits.h>
 
 #ifdef CONIO_H
 #include <conio.h>
@@ -14,6 +16,7 @@ void run();
 void onClose();
 void handleSignal(int);
 void holdScreen();
+char* getPath();
 
 int main() {
     init();
@@ -22,6 +25,15 @@ int main() {
 }
 
 void init() {
+#ifndef _WIN32
+    // change current directory to executable path
+    char* path = getPath();
+    if (path != NULL) {
+        chdir(path);
+        free(path);
+    }
+#endif
+
 #ifdef _WIN32
     // set window title
     system("title File Transfer System");
@@ -109,3 +121,16 @@ void holdScreen() {
     getchar();
 #endif
 }
+
+#ifndef _WIN32
+char* getPath() {
+    char* buf = (char*) malloc((PATH_MAX + 1) * sizeof(char));
+    int ret = readlink("/proc/self/exe", buf, PATH_MAX);
+    if (ret != -1) {
+        char* pos = strrchr(buf, '/');
+        *pos = 0;
+        return buf;
+    }
+    return NULL;
+}
+#endif

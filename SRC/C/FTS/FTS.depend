@@ -6,8 +6,12 @@
 	<signal.h>
 	<unistd.h>
 
+1569605008 
+
 1566990783 source:d:\c\fts\resource.rc
 	<windows.h>
+
+1569013794 >
 
 1567191811 source:d:\codeblocks projects\fts\main.c
 	<stdio.h>
@@ -22,10 +26,15 @@
 1569013794 source:d:\file transfer system\src\c\fts\resource.rc
 	<windows.h>
 
-1569605008 source:d:\file transfer system\src\c\fts\main.c
+1569643300 source:d:\file transfer system\src\c\fts\main.c
 	<stdio.h>
 	<stdlib.h>
 	<signal.h>
 	<unistd.h>
+	<string.h>
+	<limits.h>
 	<conio.h>
+
+1569013794 source:/mnt/D Drive/File Transfer System/SRC/C/FTS/resource.rc
+	<windows.h>
 
