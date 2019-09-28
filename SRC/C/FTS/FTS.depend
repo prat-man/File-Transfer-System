@@ -26,13 +26,15 @@
 1569013794 source:d:\file transfer system\src\c\fts\resource.rc
 	<windows.h>
 
-1569643300 source:d:\file transfer system\src\c\fts\main.c
+1569665644 source:d:\file transfer system\src\c\fts\main.c
 	<stdio.h>
 	<stdlib.h>
 	<signal.h>
 	<unistd.h>
 	<string.h>
 	<limits.h>
+	<windows.h>
+	<wchar.h>
 	<conio.h>
 
 1569013794 source:/mnt/D Drive/File Transfer System/SRC/C/FTS/resource.rc

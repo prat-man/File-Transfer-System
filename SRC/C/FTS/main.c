@@ -3,10 +3,20 @@
 #include <signal.h>
 #include <unistd.h>
 #include <string.h>
-#include <limits.h>
+
+#ifdef _WIN32
+#include <windows.h>
+#include <wchar.h>
+#endif
 
 #ifdef CONIO_H
 #include <conio.h>
+#endif
+
+#ifdef _WIN32
+#define PATH_MAX 4096
+#else
+#include <limits.h>
 #endif
 
 #define LOCK "fts.lock"
@@ -16,7 +26,12 @@ void run();
 void onClose();
 void handleSignal(int);
 void holdScreen();
+
+#ifdef _WIN32
+WCHAR* getPath();
+#else
 char* getPath();
+#endif
 
 int main() {
     init();
@@ -25,14 +40,20 @@ int main() {
 }
 
 void init() {
-#ifndef _WIN32
     // change current directory to executable path
+#ifdef _WIN32
+    WCHAR* path = getPath();
+#else
     char* path = getPath();
+#endif
     if (path != NULL) {
+    #ifdef _WIN32
+        _wchdir(path);
+    #else
         chdir(path);
+    #endif
         free(path);
     }
-#endif
 
 #ifdef _WIN32
     // set window title
@@ -80,7 +101,7 @@ void run() {
 
 #ifdef _WIN32
     // execute application
-    int code = system("java-runtime\\bin\\java -jar fts-0.0.1-SNAPSHOT.war");
+    system("java-runtime\\bin\\java -jar fts-0.0.1-SNAPSHOT.war");
 #else
     // execute application
     int code = system("java-runtime/bin/java -jar fts-0.0.1-SNAPSHOT.war");
@@ -122,7 +143,20 @@ void holdScreen() {
 #endif
 }
 
-#ifndef _WIN32
+#ifdef _WIN32
+WCHAR* getPath() {
+    WCHAR* buf = (WCHAR*) malloc((PATH_MAX + 1) * sizeof(WCHAR));
+    HMODULE hModule = GetModuleHandleW(NULL);
+    GetModuleFileNameW(hModule, buf, MAX_PATH);
+    int ret = GetLastError();
+    if (ret == 0) {
+        WCHAR* pos = wcsrchr(buf, L'\\');
+        *pos = 0;
+        return buf;
+    }
+    return NULL;
+}
+#else
 char* getPath() {
     char* buf = (char*) malloc((PATH_MAX + 1) * sizeof(char));
     int ret = readlink("/proc/self/exe", buf, PATH_MAX);
