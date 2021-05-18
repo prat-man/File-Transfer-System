@@ -1,17 +1,100 @@
-* {
-	font-family: sans-serif;
+@font-face
+{
+	font-family: Roboto;
+	src: url('../font/Roboto-Regular.ttf') format('truetype');
 }
 
+* {
+	font-family: Roboto;
+	outline: none;
+}
+
+html,
 body {
-	padding: 0 10px 10px 10px;
+	padding: 0;
+	margin: 0;
+	font-size: 15px;
+	
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+	-webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 
 .bordered {
-	border: 1px solid #929292;
+	border: 1px solid #CCCCCC;
+	border-radius: 3px;
 }
 
 .padded {
 	padding: 15px;
+}
+
+.view-wrapper {
+	padding: 15px 15px 20px 15px;
+}
+
+.nav-bar-wrapper {
+	position: fixed;
+	width: 100%;
+	z-index: 1000;
+}
+
+.nav-bar {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding: 15px;
+	border: none;
+	border-bottom: 1px solid #DDDDDD;
+	background-color: #F2F2F2;
+	z-index: 1000;
+}
+
+.push {
+	-webkit-box-flex: 1;
+	-ms-flex: 1 0 auto;
+	flex: 1 0 auto;
+	-webkit-flex: 1 0 auto;
+}
+
+.footer {
+	border-top: 1px solid #DDDDDD;
+	background-color: #F2F2F2;
+	text-align: center;
+	font-size: 14px;
+	padding: 15px;
+	display: none;
+}
+
+h1, h2, h3, h4, h5 {
+	margin: 0;
+}
+
+@media only screen and (max-width: 650px) {
+	h1 {
+		font-size: 22px;
+	}
+	
+	h3 {
+		font-size: 16px;
+	}
+}
+
+span.brand {
+	color: #008080;
+	display: inline-block;
+}
+
+span.author {
+	color: #555555;
+	display: inline-block;
 }
 
 table {
@@ -36,18 +119,41 @@ th:last-child, td:last-child {
 	padding-right: 15px;
 }
 
-tr:nth-child(even) {
+th.pad-left, td.pad-left {
+	padding-left: 15px;
+}
+
+th.pad-right, td.pad-right {
+	padding-right: 15px;
+}
+
+td.sticky {
+	position: -webkit-sticky;
+	position: sticky;
+	background-color: white;
+}
+
+tr:nth-child(even),
+tr:nth-child(even) td.sticky {
 	background-color: #F2F2F2;
+}
+
+td:nth-child(4).sticky {
+	right: 50px;
+}
+
+td:nth-child(5).sticky {
+	right: 0;
 }
 
 a, a:link, a:visited {
 	text-decoration: none;
-	color: blue;
+	color: #008080;
 	cursor: pointer;
 }
 
 a:hover {
-	color: red;
+	color: #CD5C5C;
 }
 
 .disabled, .disabled a {
@@ -55,27 +161,42 @@ a:hover {
 	cursor: default;
 }
 
-input[type="submit"] {
-	min-width: 120px;
-	min-height: 32px;
-}
-
-input[type="text"], input[type="password"] {
+input[type="text"],
+input[type="password"] {
 	width: 100%;
-	min-height: 22px;
-	padding: 7px 10px 6px 10px;
+	padding: 9px;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
+	
+	border: 1px solid #CCCCCC;
+	border-radius: 3px;
+	
+	font: inherit;
 }
 
-input[type="file"] {
-	width: 100%;
+button,
+input[type="submit"],
+input[type="button"] {
+	background-color: #008080;
+	color: white;
+	border-radius: 3px;
+	border: none;
+	padding: 10px 20px;
+	cursor: pointer;
+	
+	font: inherit;
+}
+
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover {
+	background-color: #009A9A;
 }
 
 hr {
 	border: none;
-	border-top: 1px solid gray;
+	border-top: 1px solid #CCCCCC;
 }
 
 h3 {
@@ -87,18 +208,20 @@ h3 {
 	white-space: nowrap;
 	overflow-x: auto;
 	background-color: #F0F0F0;
+	font-size: 16px;
 }
 
 .pathbar.bordered {
 	border-bottom: none;
+	border-radius: 3px 3px 0 0;
 }
 
 span.heading {
 	padding: 10px 15px 10px 15px;
-	margin-bottom: -10px;
 	display: block;
-	font-weight: bold;
 	background-color: #F0F0F0;
+	border-bottom: 1px solid #CCCCCC;
+	font-size: 16px;
 }
 
 #browser {
@@ -106,15 +229,12 @@ span.heading {
 	overflow: auto;
 }
 
-#browser table {
-	margin: 10px 0 10px 0;
+#browser.bordered {
+	border-radius: 0 0 3px 3px;
 }
 
-input[type="button"].alert {
-	width: 32px;
-	height: 32px;
-	color: red;
-	font-weight: bold;
+#browser table {
+	margin: 10px 0 10px 0;
 }
 
 .splitter {
@@ -128,4 +248,179 @@ input[type="button"].alert {
 		width: 100%;
 		height: 18px;
 	}
+}
+
+.home {
+	vertical-align: middle;
+}
+
+.home:hover .normal {
+	display: none;
+}
+
+.home .hover {
+	display: none;
+}
+
+.home:hover .hover {
+	display: inline;
+}
+
+.img-button:hover {
+	opacity: 0.7;
+}
+
+.pad-bottom {
+	margin-bottom: 15px;
+}
+
+/** PROGRESS BAR **/
+
+.progress-bar {
+    background-color: #F2F2F2;
+    border-radius: 10rem;
+    border: 1px solid #CCCCCC;
+    width: 50%;
+    min-width: 200px;
+    height: 22px;
+    vertical-align: middle;
+    display: none;
+}
+
+.progress-track {
+	width: calc(100% - 4px);
+	border-radius: 10rem;
+	overflow: hidden;
+	height: calc(100% - 4px);
+    margin: 2px;
+}
+
+.progress {
+    background: #008080;
+    border-radius: 10rem;
+    width: 0;
+    height: 100%;
+    transition: width 0.1s ease-in;
+}
+
+.progress-label {
+	display: none;
+	color: black;
+	padding-left: 5px;
+	vertical-align: middle;
+}
+
+.center {
+	text-align: center;
+}
+
+.right {
+	text-align: right;
+}
+
+/** FILE **/
+
+.file {
+  position: relative;
+  display: block;
+  cursor: pointer;
+  height: 39px;
+  font-size: 15px;
+}
+
+.file input {
+  max-width: 0;
+  margin: 0;
+  filter: alpha(opacity=0);
+  opacity: 0;
+}
+
+.file-custom {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 5;
+  height: 22px;
+  padding: 7px 10px;
+  line-height: 22px;
+  color: #555555;
+  background-color: #FFFFFF;
+  border: .075rem solid #CCCCCC;
+  border-radius: .25rem;
+}
+
+.file-custom:before {
+  position: absolute;
+  top: -.075rem;
+  right: -.075rem;
+  bottom: -.075rem;
+  z-index: 6;
+  display: block;
+  content: "Browse";
+  height: 22px;
+  padding: 7px 10px;
+  line-height: 22px;
+  color: #555555;
+  background-color: #EEEEEE;
+  border: .075rem solid #CCCCCC;
+  border-radius: 0 .25rem .25rem 0;
+}
+
+/** LOGIN PAGE **/
+
+.floating-input {
+	position: relative;
+	margin-top: 10px;
+	width: 250px;
+	max-width: calc(100vw - 30px);
+}
+
+.floating-input input[type="text"],
+.floating-input input[type="password"] {
+	border: 2px solid #CCCCCC;
+}
+
+.floating-input input[type="text"]:focus,
+.floating-input input[type="password"]:focus {
+	border: 2px solid #008080;
+}
+
+.floating-input .floating-label {
+	position: absolute;
+	
+	pointer-events: none;
+	top: 11px;
+	left: 10px;
+	transition: 0.2s ease all;
+	color: #777777;
+}
+
+.floating-input input:focus ~ .floating-label,
+.floating-input input:not(:focus):valid ~ .floating-label {
+	top: -10px;
+	left: 10px;
+	border-radius: 1.5rem;
+	font-size: 13px;
+	opacity: 1;
+	background-color: white;
+	padding: 0 5px;
+}
+
+.floating-input input:focus ~ .floating-label {
+	color: #008080;
+}
+
+.login-button {
+	width: 250px;
+	max-width: calc(100vw - 30px);
+}
+
+.login-wrapper {
+	display: inline-block;
+	padding: 30px 0;
+}
+
+.login-error {
+	color: red;
 }

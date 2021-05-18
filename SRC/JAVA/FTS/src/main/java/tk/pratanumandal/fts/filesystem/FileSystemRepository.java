@@ -65,6 +65,14 @@ public class FileSystemRepository implements FileSystemListener {
 			System.out.println("File Deleted: " + path);
 		}
 		this.fileLengthMap.remove(path.toString());
+		path = path.getParent();
+		// update upto root (exclusive)
+		while (path.compareTo(Paths.get(FtsConstants.SANDBOX_FOLDER)) != 0) {
+			this.fileLengthMap.put(path.toString(), getFileSizeInit(path.toFile()));
+			path = path.getParent();
+		}
+		// update root
+		this.fileLengthMap.put(path.toString(), getFileSizeInit(path.toFile()));
 	}
 	
 	private BigInteger getFileSizeInit(File file) {

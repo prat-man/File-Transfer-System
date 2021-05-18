@@ -299,42 +299,8 @@ public class FtsController {
 		response.setStatus(200);
 	}
 
-	@PostMapping("/uploadFile")
-	public void fileUpload(@RequestParam("file") MultipartFile file, @RequestParam("path") String path, HttpServletResponse response) {
-		
-		path = validatePath(path);
-		
-		if (!file.isEmpty()) {
-			try {
-				String fileName;
-				File fileObj = new File(file.getOriginalFilename());
-				if (fileObj.isAbsolute()) {
-					fileName = fileObj.getName();
-				} else {
-					fileName = file.getOriginalFilename();
-				}
-				fileName = validatePath(fileName);
-				Path filePath;
-				if (path.isEmpty()) {
-					filePath = Paths.get(FtsConstants.SANDBOX_FOLDER + "/" + fileName);
-				} else {
-					filePath = Paths.get(FtsConstants.SANDBOX_FOLDER + "/" + path + "/" +  fileName);
-				}
-				Files.createDirectories(filePath.getParent());
-				Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-			} catch (IOException e) {
-				logger.error("An error occurred when trying to upload file to server");
-				e.printStackTrace();
-				response.setStatus(500);
-				return;
-			}
-		}
-		
-		response.setStatus(200);
-	}
-	
-	@PostMapping("/uploadFolder")
-	public void folderUpload(@RequestParam("files") List<MultipartFile> files, @RequestParam("fileNames") String fileNames, @RequestParam("path") String path, HttpServletResponse response) {
+	@PostMapping("/uploadFiles")
+	public void fileUpload(@RequestParam("files") List<MultipartFile> files, @RequestParam("fileNames") String fileNames, @RequestParam("path") String path, HttpServletResponse response) {
 		
 		path = validatePath(path);
 		

@@ -8,38 +8,69 @@
 	
 	<link rel="icon" type="image/x-icon" href="favicon.ico">
 	
-	<link href="css/login.css" rel="stylesheet" type="text/css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.form.min.js"></script>
+	
+	<link href="css/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
-	<div style="text-align: center; border: none;">
-		<h1>File Transfer System</h1>
-		<h3 style="margin-top: -10px;">Pratanu Mandal</h3>
-	</div>
-	<hr>
-	<br>
-
-	<div style="text-align: center;">
-		<div style="display: inline-block; text-align: left;">
-			<c:url value="/login" var="loginUrl" />
-			<form action="${loginUrl}" method="post">
-				<label for="username">Username</label>
-				<input type="text" id="username" name="username" />
-				<br><br><br>
-				<label for="password">Password</label>
-				<input type="password" id="password" name="password" />
-				<br><br><br><br>
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-				<div style="text-align: center;">
-					<input type="submit" value="Log In" />
-					<br><br><br>
-					<c:if test="${param.error != null}">
-					<span style="color: red;">Invalid username and password</span>
-				</c:if>
-				</div>
-			</form>
+	<div class="nav-bar-wrapper" id="nav-bar-wrapper">
+		<div class="nav-bar">
+			<div style="flex-grow: 1;">
+				<h1>
+					<a href="/">
+						<span class="brand">File Transfer System</span>
+					</a>
+				</h1>
+				<h3>
+					<a href="https://pratanumandal.in/" target="_BLANK">
+						<span class="author">Pratanu Mandal</span>
+					</a>
+				</h3>
+			</div>
 		</div>
 	</div>
+
+	<div class="view-wrapper" id="view-wrapper">
+	
+		<div class="center">
+			<div class="login-wrapper">
+				<c:url value="/login" var="loginUrl" />
+				<form action="${loginUrl}" method="post">
+					<div class="floating-input">
+					  <input type="text" id="username" name="username" required />
+					  <span class="floating-label">Username</span>
+					</div>
+					<br><br>
+					<div class="floating-input">
+					  <input type="password" id="password" name="password" required />
+					  <span class="floating-label">Password</span>
+					</div>
+					<br><br><br><br>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					<div>
+						<input type="submit" value="Log In" class="login-button" />
+						<br><br><br>
+						<c:if test="${param.error != null}">
+							<span class="login-error">Invalid username and password</span>
+						</c:if>
+					</div>
+				</form>
+			</div>
+		</div>
+		
+	</div>
+	
+	<div class="push"></div>
+	
+	<div class="footer" id="footer">
+		<span>Please consider using <b>Mozilla Firefox</b> or <b>Google Chrome</b> for the best experience</span>
+	</div>
+	
+	<script src="js/common.js"></script>
 
 </body>
 </html>

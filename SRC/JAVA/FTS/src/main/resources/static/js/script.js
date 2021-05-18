@@ -2,6 +2,7 @@
 $(function() {
 	var pathbar = $('#pathbar');
 	var browser = $('#browser');
+	var progressBar = $('#fileUploadProgressBar');
 	var progress = $('#fileUploadProgress');
 	var progressVal = $('#fileUploadProgressValue');
 	var uploadSubmit = $('#fileUploadSubmit');
@@ -16,10 +17,10 @@ $(function() {
 			browser.bind('click', function(e) { e.preventDefault();});
 			pathbar.addClass('disabled');
 			browser.addClass('disabled');
-			progress.val(0);
+			progress.width('0%');
 			progressVal.html('0%');
-			progress.css('display', 'inline-block');
-			progressVal.css('display', 'inline-block');
+			progressBar.css('display', 'inline-block');
+			progressVal.css('display', 'inline');
 			uploadSubmit.css('display', 'none');
 			$('#fileUploadField').prop('disabled', true);
 			$('#folderUploadForm *').prop('disabled', true);
@@ -28,12 +29,12 @@ $(function() {
 		uploadProgress : function(event, position, total, percentComplete) {
 			if (flag || percentComplete == 100) {
 				flag = true;
-				progress.removeAttr('value');
+				progress.width(percentComplete + '%');
 				progressVal.html('Processing ...');
 			}
 			else {
 				flag = false;
-				progress.val(percentComplete / 100);
+				progress.width(percentComplete + '%');
 				progressVal.html(percentComplete + '%');
 			}
 		},
@@ -47,7 +48,7 @@ $(function() {
 				alert("Upload Failed!");
 			}
 			browser.unbind('click');
-			progress.css('display', 'none');
+			progressBar.css('display', 'none');
 			progressVal.css('display', 'none');
 			uploadSubmit.css('display', 'inline-block');
 			$('#fileUploadField').prop('disabled', false);
@@ -62,6 +63,7 @@ $(function() {
 $(function() {
 	var pathbar = $('#pathbar');
 	var browser = $('#browser');
+	var progressBar = $('#folderUploadProgressBar');
 	var progress = $('#folderUploadProgress');
 	var progressVal = $('#folderUploadProgressValue');
 	var uploadSubmit = $('#folderUploadSubmit');
@@ -76,10 +78,10 @@ $(function() {
 			browser.bind('click', function(e) { e.preventDefault();});
 			pathbar.addClass('disabled');
 			browser.addClass('disabled');
-			progress.val(0);
+			progress.width('0%');
 			progressVal.html('0%');
-			progress.css('display', 'inline-block');
-			progressVal.css('display', 'inline-block');
+			progressBar.css('display', 'inline-block');
+			progressVal.css('display', 'inline');
 			uploadSubmit.css('display', 'none');
 			$('#folderUploadField').prop('disabled', true);
 			$('#fileUploadForm *').prop('disabled', true);
@@ -88,12 +90,12 @@ $(function() {
 		uploadProgress : function(event, position, total, percentComplete) {
 			if (flag || percentComplete == 100) {
 				flag = true;
-				progress.removeAttr('value');
+				progress.width(percentComplete + '%');
 				progressVal.html('Processing ...');
 			}
 			else {
 				flag = false;
-				progress.val(percentComplete / 100);
+				progress.width(percentComplete + '%');
 				progressVal.html(percentComplete + '%');
 			}
 		},
@@ -107,7 +109,7 @@ $(function() {
 				alert("Upload Failed!");
 			}
 			browser.unbind('click');
-			progress.css('display', 'none');
+			progressBar.css('display', 'none');
 			progressVal.css('display', 'none');
 			uploadSubmit.css('display', 'inline-block');
 			$('#folderUploadField').prop('disabled', false);
@@ -140,6 +142,29 @@ $(function(){
 	});
 });
 
+// handle file names for file upload
+$(function(){
+	$('#fileUploadForm').bind('change', function(event) {
+		var fileNames = "";
+		var files = event.target.files;
+		for (var i = 0; i < files.length; i++) {
+			var path = files[i].webkitRelativePath;
+			if (path === undefined) {
+				path = "";
+			}
+			fileNames += path + ";";
+		};
+		$('#fileUploadForm #fileNames').val(fileNames);
+		
+		if (files.length === 1) {
+			$('#fileUploadLabel').html(files.length + " file selected");
+		}
+		else {
+			$('#fileUploadLabel').html(files.length + " files selected");
+		}
+	});
+});
+
 // handle file names for folder upload
 $(function(){
 	$('#folderUploadField').bind('change', function(event) {
@@ -153,25 +178,22 @@ $(function(){
 			fileNames += path + ";";
 		};
 		$('#folderUploadForm #fileNames').val(fileNames);
+		
+		if (files.length === 1) {
+			$('#folderUploadLabel').html(files.length + " file selected");
+		}
+		else {
+			$('#folderUploadLabel').html(files.length + " files selected");
+		}
 	});
 });
 
 // folder or multi-file upload interface switch
 $(function(){
 	// currently all mobile devices are disabled, since they are not working properly
-	if (isFolderUploadSupported() && !isMobileDevice()) {
-		$('#folderUploadWarning').remove();
-		
-		$('#folderUploadField').removeAttr('multiple');
-	} else {
-		$('#folderUploadWarning').show();
-		$('#folderUploadLabel').html('Select <b>multiple files</b> to upload');
-		
-		var element = $('#folderUploadField');
-		var list = ['webkitdirectory', 'mozdirectory', 'msdirectory', 'odirectory', 'directory'];
-		for (var i = 0; i < list.length; i++) {
-			element.removeAttr(list[i]);
-		}
+	if (!isFolderUploadSupported() || isMobileDevice()) {
+		$('#folderUpload').remove();
+		$('#folderUploadSplitter').remove();
 	}
 });
 
@@ -213,15 +235,6 @@ function deleteFile(fileName, filePath) {
 		});
 	}
 }
-
-// back button reload
-window.addEventListener("pageshow", function(event) {
-	var historyTraversal = event.persisted
-			|| (typeof window.performance != "undefined" && window.performance.navigation.type === 2);
-	if (historyTraversal) {
-		window.location.reload();
-	}
-});
 
 // ping every 5 minutes to keep session alive
 function ping() {
