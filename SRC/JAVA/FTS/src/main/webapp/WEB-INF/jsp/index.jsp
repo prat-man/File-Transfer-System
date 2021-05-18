@@ -119,13 +119,13 @@
 								<c:if test="${FtsConstants.DELETE}">
 								<td class="pad-left pad-right sticky">
 									<a onclick="deleteFile('${file.getName()}', '${file.getEncodedPath()}')">
-										<img src="img/trash.svg" alt="Delete" width="20px" tooltip="Delete" class="img-button" />
+										<img src="img/trash.svg" alt="Delete" width="20px" class="img-button" />
 									</a>
 								</td>
 								</c:if>
 								<td class="pad-left sticky">
 									<a href="/download?path=${file.getEncodedPath()}">
-										<img src="img/download.svg" alt="Download" width="20px" tooltip="Download" class="img-button" />
+										<img src="img/download.svg" alt="Download" width="20px" class="img-button" />
 									</a>
 								</td>
 							</tr>
