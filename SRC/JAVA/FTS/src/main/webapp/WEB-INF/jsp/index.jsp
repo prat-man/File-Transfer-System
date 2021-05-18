@@ -3,7 +3,7 @@
 <%@page trimDirectiveWhitespaces="true"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.util.StringTokenizer"%>
-<%@page import="tk.pratanumandal.fts.util.FtsConstants"%>
+<%@page import="in.pratanumandal.fts.util.FtsConstants"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
