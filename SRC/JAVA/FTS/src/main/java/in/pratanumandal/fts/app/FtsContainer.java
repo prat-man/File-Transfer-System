@@ -2,6 +2,8 @@ package in.pratanumandal.fts.app;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.InvalidParameterException;
@@ -10,8 +12,10 @@ import javax.xml.bind.JAXBException;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import in.pratanumandal.fts.bean.FtsConfig;
@@ -109,6 +113,12 @@ public class FtsContainer implements WebServerFactoryCustomizer<ConfigurableServ
 			e.printStackTrace();
 		}
 		
+	}
+	
+	@EventListener(ApplicationReadyEvent.class)
+	public void afterStartup() throws UnknownHostException {
+		InetAddress address = InetAddress.getLocalHost();
+		logger.info("Started FtsApplication on " + address.getHostAddress() + ":" + FtsConstants.PORT);
 	}
 
 }
