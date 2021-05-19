@@ -10,6 +10,7 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -41,6 +42,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import in.pratanumandal.fts.bean.FtsConfig.Credentials.Credential;
 import in.pratanumandal.fts.bean.SandboxedFile;
 import in.pratanumandal.fts.exception.ForbiddenException;
 import in.pratanumandal.fts.exception.InvalidFileNameException;
@@ -84,7 +86,7 @@ public class FtsController {
 	}
 	
 	@GetMapping("/")
-	public String index(@PathParam("path") String path, Map<String, Object> model, HttpServletRequest request) throws IOException {
+	public String index(@PathParam("path") String path, Map<String, Object> model, HttpServletRequest request, Principal principal) throws IOException {
 		
 		path = validatePath(path);
 
@@ -172,6 +174,9 @@ public class FtsController {
 		
 		if (request.isUserInRole("READER")) model.put("reader", true);
 		else model.put("reader", false);
+		
+		String name = FtsConstants.getName(principal.getName());
+		model.put("name", name);
 
 		return "index";
 	}

@@ -30,4 +30,17 @@ public class FtsConstants {
 		return new JFileChooser().getFileSystemView().getDefaultDirectory().getAbsolutePath() + "/Sandbox";
 	}
 	
+	public static String getName(String username) {
+		for (Credential credential : FtsConstants.CREDENTIALS) {
+			if (credential.getUsername().equals(username)) {
+				if (credential.getName() != null) {
+					return credential.getName();//.split("\\s|,")[0];
+				}
+				return username;
+			}
+		}
+		
+		return username;
+	}
+	
 }

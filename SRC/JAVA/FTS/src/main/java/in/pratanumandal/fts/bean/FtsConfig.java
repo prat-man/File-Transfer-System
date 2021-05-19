@@ -81,11 +81,21 @@ public class FtsConfig {
 		@XmlAccessorType(XmlAccessType.FIELD)
 		public static class Credential {
 			
+			private String name;
+			
 			private String username;
 			
 			private String password;
 			
 			private String role;
+
+			public String getName() {
+				return name;
+			}
+
+			public void setName(String name) {
+				this.name = name;
+			}
 
 			public String getUsername() {
 				return username;

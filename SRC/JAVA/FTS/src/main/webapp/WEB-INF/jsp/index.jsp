@@ -45,6 +45,10 @@
 
 	<div class="view-wrapper" id="view-wrapper">
 	
+		<h3 class="username">Welcome, ${name}!</h3>
+		
+		<br>
+	
 		<div id="pathbar" class="pathbar bordered">
 			<%
 				String path = request.getParameter("path");
