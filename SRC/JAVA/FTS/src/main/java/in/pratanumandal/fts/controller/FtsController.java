@@ -28,6 +28,7 @@ import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -83,7 +84,7 @@ public class FtsController {
 	}
 	
 	@GetMapping("/")
-	public String index(@PathParam("path") String path, Map<String, Object> model) throws IOException {
+	public String index(@PathParam("path") String path, Map<String, Object> model, HttpServletRequest request) throws IOException {
 		
 		path = validatePath(path);
 
@@ -162,6 +163,15 @@ public class FtsController {
 		model.put("folderCount", folderCount);
 		
 		model.put("size", size);
+		
+		if (request.isUserInRole("ADMIN")) model.put("admin", true);
+		else model.put("admin", false);
+		
+		if (request.isUserInRole("WRITER")) model.put("writer", true);
+		else model.put("writer", false);
+		
+		if (request.isUserInRole("READER")) model.put("reader", true);
+		else model.put("reader", false);
 
 		return "index";
 	}
@@ -257,14 +267,9 @@ public class FtsController {
 		}
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/delete")
-	public void deleteFile(@PathParam("path") String path, HttpServletResponse response) {
-		
-		if (!FtsConstants.DELETE) {
-			String ipAddress = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getRemoteAddr();
-			logger.warn("An attempt was made to delete files / folders from IP: " + ipAddress);
-			throw new ForbiddenException("Deletion of files and folders is forbidden");
-		}
+	public void deleteFile(@PathParam("path") String path, HttpServletRequest request, HttpServletResponse response) {
 		
 		path = validatePath(path);
 		
@@ -299,6 +304,7 @@ public class FtsController {
 		response.setStatus(200);
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN', 'WRITER')")
 	@PostMapping("/uploadFiles")
 	public void fileUpload(@RequestParam("files") List<MultipartFile> files, @RequestParam("fileNames") String fileNames, @RequestParam("path") String path, HttpServletResponse response) {
 		
@@ -344,6 +350,7 @@ public class FtsController {
 		response.setStatus(200);
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN', 'WRITER')")
 	@PostMapping("/createFolder")
 	public void createFolder(@RequestParam("folderName") String folderName, @RequestParam("path") String path, HttpServletResponse response) {
 		

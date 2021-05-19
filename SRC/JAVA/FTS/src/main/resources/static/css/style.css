@@ -25,6 +25,7 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active {
 	-webkit-box-shadow: 0 0 0 30px white inset !important;
+	box-shadow: 0 0 0 30px white inset !important;
 }
 
 .bordered {
@@ -127,22 +128,29 @@ th.pad-right, td.pad-right {
 	padding-right: 15px;
 }
 
-td.sticky {
-	position: -webkit-sticky;
-	position: sticky;
-	background-color: white;
+tr {
+	background-color: #FFFFFF;
 }
 
-tr:nth-child(even),
-tr:nth-child(even) td.sticky {
+tr:nth-child(even) {
 	background-color: #F2F2F2;
 }
 
-td:nth-child(4).sticky {
+td.sticky {
+	position: -webkit-sticky;
+	position: sticky;
+	background-color: #FFFFFFEE;
+}
+
+tr:nth-child(even) td.sticky {
+	background-color: #F2F2F2EE;
+}
+
+td.sticky {
 	right: 50px;
 }
 
-td:nth-child(5).sticky {
+td:last-child.sticky {
 	right: 0;
 }
 

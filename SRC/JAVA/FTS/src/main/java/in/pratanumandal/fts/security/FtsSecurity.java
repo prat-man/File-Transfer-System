@@ -22,14 +22,14 @@ public class FtsSecurity extends WebSecurityConfigurerAdapter {
 			auth.inMemoryAuthentication()
 				.withUser("admin")
 				.password(passwordEncoder().encode("admin"))
-				.roles("USER");
+				.roles("ADMIN");
 		}
 		else {
 			for (Credential credential : FtsConstants.CREDENTIALS) {
 				auth.inMemoryAuthentication()
 					.withUser(credential.getUsername())
 					.password(passwordEncoder().encode(credential.getPassword()))
-					.roles("USER");
+					.roles(this.getRole(credential));
 			}
 		}
 	}
@@ -50,7 +50,7 @@ public class FtsSecurity extends WebSecurityConfigurerAdapter {
 		.antMatchers("/js/common.js").permitAll()
 		.antMatchers("/js/jquery.*.js").permitAll()
 		.antMatchers("/img/login.svg").permitAll()
-		.anyRequest().hasRole("USER")
+		.anyRequest().hasAnyRole("ADMIN", "WRITER", "READER")
 		
 		.and()
 		
@@ -67,6 +67,15 @@ public class FtsSecurity extends WebSecurityConfigurerAdapter {
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 	    return new BCryptPasswordEncoder();
+	}
+	
+	private String getRole(Credential credential) {
+		String role = credential.getRole();
+		
+		if (role == null) return "READER";
+		if (role.equalsIgnoreCase("ADMIN")) return "ADMIN";
+		if (role.equalsIgnoreCase("WRITER")) return "WRITER";
+		return "READER";
 	}
 	
 }

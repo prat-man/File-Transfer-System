@@ -3,7 +3,6 @@
 <%@page trimDirectiveWhitespaces="true"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.util.StringTokenizer"%>
-<%@page import="in.pratanumandal.fts.util.FtsConstants"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -116,7 +115,7 @@
 								<td class="pad-right right">
 									<span style="white-space: nowrap;">${file.getSize()}</span>
 								</td>
-								<c:if test="${FtsConstants.DELETE}">
+								<c:if test="${admin}">
 								<td class="pad-left pad-right sticky">
 									<a onclick="deleteFile('${file.getName()}', '${file.getEncodedPath()}')">
 										<img src="img/trash.svg" alt="Delete" width="20px" class="img-button" />
@@ -137,6 +136,7 @@
 	
 		<br>
 	
+		<c:if test="${admin || writer}">
 		<div style="display:flex; flex-wrap: wrap; justify-content: space-between;">
 			<div class="bordered" style="flex-grow: 1; flex-basis: 0;">
 				<span class="heading">Select one or more files to upload</span>
@@ -186,8 +186,10 @@
 		</div>
 		
 		<br>
+		</c:if>
 		
 		<div style="display: flex; flex-wrap: wrap; justify-content: space-between; padding: 0; border: none;">
+			<c:if test="${admin || writer}">
 			<div class="bordered" style="flex-grow: 1; flex-basis: 0;">
 				<span class="heading">Create a new folder</span>
 				<form id="createFolderForm" class="padded">
@@ -200,6 +202,7 @@
 			</div>
 			
 			<div class="splitter"></div>
+			</c:if>
 			
 			<div class="bordered" style="flex-grow: 1; flex-basis: 0;">
 				<span class="heading">Folder Information</span>

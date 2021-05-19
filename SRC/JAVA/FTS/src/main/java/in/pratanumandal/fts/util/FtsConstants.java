@@ -19,8 +19,6 @@ public class FtsConstants {
 	
 	public static boolean SHOW_FOLDER_SIZE = true;
 	
-	public static boolean DELETE = true;
-	
 	public static boolean VERBOSE = false;
 	
 	

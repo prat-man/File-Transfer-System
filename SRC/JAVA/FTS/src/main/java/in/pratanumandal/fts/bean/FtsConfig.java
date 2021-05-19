@@ -20,8 +20,6 @@ public class FtsConfig {
 	@XmlElement(name="show-folder-size")
 	private String showFolderSize;
 	
-	private String delete;
-	
 	private String verbose;
 	
 	public int getPort() {
@@ -55,14 +53,6 @@ public class FtsConfig {
 	public void setShowFolderSize(String showFolderSize) {
 		this.showFolderSize = showFolderSize;
 	}
-	
-	public String getDelete() {
-		return delete;
-	}
-
-	public void setDelete(String delete) {
-		this.delete = delete;
-	}
 
 	public String getVerbose() {
 		return verbose;
@@ -94,6 +84,8 @@ public class FtsConfig {
 			private String username;
 			
 			private String password;
+			
+			private String role;
 
 			public String getUsername() {
 				return username;
@@ -109,6 +101,14 @@ public class FtsConfig {
 
 			public void setPassword(String password) {
 				this.password = password;
+			}
+
+			public String getRole() {
+				return role;
+			}
+
+			public void setRole(String role) {
+				this.role = role;
 			}
 			
 		}
