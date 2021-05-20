@@ -6,5 +6,5 @@ It uses Spring Boot and allows upload and download of files with no size or type
 
 ## Information
 
-The Brainfuck Studio icon is made by [Freepik](https://www.freepik.com) from [www.flaticon.com](https://www.flaticon.com/).
+The File Transfer System icon is made by [Freepik](https://www.freepik.com) from [www.flaticon.com](https://www.flaticon.com/).
 <br><br>
