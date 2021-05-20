@@ -41,6 +41,12 @@ input:-webkit-autofill:active {
 	padding: 15px 15px 20px 15px;
 }
 
+.flex-wrapper {
+	display:flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
 .nav-bar-wrapper {
 	position: fixed;
 	width: 100%;
@@ -78,6 +84,10 @@ h1, h2, h3, h4, h5 {
 	margin: 0;
 }
 
+h2.name {
+	color: #008080;
+}
+
 h3 {
 	font-weight: normal;
 }
@@ -90,7 +100,12 @@ h3.username {
 	overflow: hidden;
 }
 
-@media only screen and (max-width: 650px) {
+h3.description {
+	color: #777777;
+	margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 700px) {
 	h1 {
 		font-size: 22px;
 	}
@@ -259,10 +274,24 @@ span.heading {
 	border: none;
 }
 
-@media only screen and (max-width: 650px) {
+.splitter.login {
+	width: 100px;
+	background-image: linear-gradient(#CCCCCC, #CCCCCC);
+	background-size: 1px 100%;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+@media only screen and (max-width: 700px) {
 	.splitter {
 		width: 100%;
 		height: 18px;
+	}
+	
+	.splitter.login {
+		width: 100%;
+		height: 100px;
+		background-size: 100% 1px;
 	}
 }
 
@@ -330,8 +359,19 @@ span.heading {
 	text-align: center;
 }
 
+.left {
+	text-align: left;
+}
+
 .right {
 	text-align: right;
+}
+
+@media only screen and (max-width: 700px) {
+	.left.responsive,
+	.right.responsive {
+		text-align: center;
+	}
 }
 
 /** FILE **/
@@ -385,6 +425,10 @@ span.heading {
 
 /** LOGIN PAGE **/
 
+.fts-logo {
+	margin-top: 10px;
+}
+
 .floating-input {
 	position: relative;
 	margin-top: 10px;
@@ -437,6 +481,12 @@ span.heading {
 	padding: 30px 0;
 }
 
+.login-container {
+	display: inline-block;
+	max-width: 300px;
+}
+
 .login-error {
-	color: red;
+	color: #FF3333;
+	margin-bottom: 10px;
 }

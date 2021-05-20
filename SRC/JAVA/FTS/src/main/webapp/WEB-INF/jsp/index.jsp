@@ -141,7 +141,7 @@
 		<br>
 	
 		<c:if test="${admin || writer}">
-		<div style="display:flex; flex-wrap: wrap; justify-content: space-between;">
+		<div class="flex-wrapper">
 			<div class="bordered" style="flex-grow: 1; flex-basis: 0;">
 				<span class="heading">Select one or more files to upload</span>
 				<div class="padded">

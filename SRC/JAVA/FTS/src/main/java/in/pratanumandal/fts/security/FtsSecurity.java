@@ -49,7 +49,7 @@ public class FtsSecurity extends WebSecurityConfigurerAdapter {
 		.antMatchers("/font/Roboto-Regular.ttf").permitAll()
 		.antMatchers("/js/common.js").permitAll()
 		.antMatchers("/js/jquery.*.js").permitAll()
-		.antMatchers("/img/login.svg").permitAll()
+		.antMatchers("/img/FTS.svg").permitAll()
 		.anyRequest().hasAnyRole("ADMIN", "WRITER", "READER")
 		
 		.and()

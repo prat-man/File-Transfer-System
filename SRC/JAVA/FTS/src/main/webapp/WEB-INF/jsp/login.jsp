@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@page trimDirectiveWhitespaces="true"%>
+<%@page import="in.pratanumandal.fts.util.FtsConstants"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
 <head>
@@ -34,32 +35,54 @@
 		</div>
 	</div>
 
-	<div class="view-wrapper" id="view-wrapper">
+	<div class="view-wrapper center" id="view-wrapper">
 	
-		<div class="center">
-			<div class="login-wrapper">
-				<c:url value="/login" var="loginUrl" />
-				<form action="${loginUrl}" method="post">
-					<div class="floating-input">
-					  <input type="text" id="username" name="username" required />
-					  <span class="floating-label">Username</span>
+		<div class="login-wrapper">
+			<div class="flex-wrapper">
+				<div style="flex-grow: 1;">
+					<div class="center responsive">
+						<div class="login-container">
+							<img src="img/FTS.svg" alt="File Transfer System" width="100px" class="fts-logo" />
+							<br><br><br>
+							<h2 class="name">${FtsConstants.NAME}</h2>
+							<br>
+							<h3 class="description">${FtsConstants.DESCRIPTION}</h3>
+						</div>
 					</div>
-					<br><br>
-					<div class="floating-input">
-					  <input type="password" id="password" name="password" required />
-					  <span class="floating-label">Password</span>
+				</div>
+				
+				<div class="splitter login"></div>
+				
+				<div style="flex-grow: 1;">
+					<div class="center responsive">
+						<div class="login-container">
+							<c:url value="/login" var="loginUrl" />
+							<form action="${loginUrl}" method="post">
+								<div class="floating-input">
+								  <input type="text" id="username" name="username" required />
+								  <span class="floating-label">Username</span>
+								</div>
+								<br><br>
+								<div class="floating-input">
+								  <input type="password" id="password" name="password" required />
+								  <span class="floating-label">Password</span>
+								</div>
+								<br><br><br><br>
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+								<div>
+									<input type="submit" value="Log In" class="login-button" />
+									<br><br>
+									<c:if test="${param.error != null}">
+										<br>
+										<div class="login-error">Invalid username or password</div>
+									</c:if>
+								</div>
+							</form>
+						</div>
 					</div>
-					<br><br><br><br>
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-					<div>
-						<input type="submit" value="Log In" class="login-button" />
-						<br><br><br>
-						<c:if test="${param.error != null}">
-							<span class="login-error">Invalid username and password</span>
-						</c:if>
-					</div>
-				</form>
+				</div>
 			</div>
+			
 		</div>
 		
 	</div>

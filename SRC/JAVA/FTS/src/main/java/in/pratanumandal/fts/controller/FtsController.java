@@ -42,7 +42,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import in.pratanumandal.fts.bean.FtsConfig.Credentials.Credential;
 import in.pratanumandal.fts.bean.SandboxedFile;
 import in.pratanumandal.fts.exception.ForbiddenException;
 import in.pratanumandal.fts.exception.InvalidFileNameException;

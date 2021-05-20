@@ -21,6 +21,10 @@ public class FtsConstants {
 	
 	public static boolean VERBOSE = false;
 	
+	public static String NAME = "File Transfer System";
+	
+	public static String DESCRIPTION = "A centralized file sharing repository";
+	
 	
 	private static String getDefaultConfigLocation() {
 		return new File("config.xml").getAbsolutePath();

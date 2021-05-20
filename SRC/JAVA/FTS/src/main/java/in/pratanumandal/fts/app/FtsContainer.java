@@ -48,6 +48,14 @@ public class FtsContainer implements WebServerFactoryCustomizer<ConfigurableServ
 					FtsConstants.SANDBOX_FOLDER = new File(config.getSandbox()).getAbsolutePath();
 				}
 				
+				if (config.getName() != null && !config.getName().isBlank()) {
+					FtsConstants.NAME = config.getName();
+				}
+				
+				if (config.getDescription() != null && !config.getDescription().isBlank()) {
+					FtsConstants.DESCRIPTION = config.getDescription();
+				}
+				
 				if (config.getCredentials() != null) {
 					FtsConstants.CREDENTIALS = config.getCredentials().getCredentialList();
 				}
