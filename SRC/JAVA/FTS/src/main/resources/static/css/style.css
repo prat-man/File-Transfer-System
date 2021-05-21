@@ -327,7 +327,7 @@ span.heading {
     border-radius: 10rem;
     border: 1px solid #CCCCCC;
     width: 50%;
-    min-width: 200px;
+    min-width: 100px;
     height: 22px;
     vertical-align: middle;
     display: none;

@@ -193,30 +193,16 @@ public class FtsController {
 		}
 
 		if (file.isDirectory()) {
-			ZipFiles zipFiles = new ZipFiles();
-
-			File zipFile = File.createTempFile("fts-", ".zip");
-
-			zipFiles.zipDirectory(file, zipFile.getAbsolutePath());
-
-			zipFile.deleteOnExit();
+			long length = ZipFiles.getZipLength(file);
+			String fileName = file.getName() + ".zip";
 
 			response.setContentType("application/force-download");
-			response.setContentLength((int) zipFile.length());
+			response.setContentLength((int) length);
 			response.setHeader("Content-Transfer-Encoding", "binary");
-			response.setHeader("Content-Disposition", "attachment; filename=\"" + zipFile.getName());
-
-			try {
-				FileInputStream is = new FileInputStream(zipFile);
-				IOUtils.copy(is, response.getOutputStream());
-				response.flushBuffer();
-				is.close();
-			} catch (IOException ex) {
-				logger.error("An error occurred when trying to download file: " + path);
-				throw new RuntimeException("IOError writing file to output stream");
-			}
-
-			zipFile.delete();
+			response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName);
+			
+			ZipFiles.zipDirectory(file, response.getOutputStream());
+			response.flushBuffer();
 		} else {
 			response.setContentType("application/force-download");
 			response.setContentLength((int) file.length());

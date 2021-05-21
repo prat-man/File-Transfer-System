@@ -156,7 +156,10 @@ $(function(){
 		};
 		$('#fileUploadForm #fileNames').val(fileNames);
 		
-		if (files.length === 1) {
+		if (files.length === 0) {
+			$('#fileUploadLabel').html("Choose files(s)");
+		}
+		else if (files.length === 1) {
 			$('#fileUploadLabel').html(files.length + " file selected");
 		}
 		else {
@@ -179,7 +182,10 @@ $(function(){
 		};
 		$('#folderUploadForm #fileNames').val(fileNames);
 		
-		if (files.length === 1) {
+		if (files.length === 0) {
+			$('#fileUploadLabel').html("Choose folder");
+		}
+		else if (files.length === 1) {
 			$('#folderUploadLabel').html(files.length + " file selected");
 		}
 		else {

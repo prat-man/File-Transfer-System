@@ -198,7 +198,7 @@
 				<span class="heading">Create a new folder</span>
 				<form id="createFolderForm" class="padded">
 					<div class="pad-bottom">
-						<input type="text" name="folderName" required="required" placeholder="Enter Folder Name" />
+						<input type="text" name="folderName" required="required" placeholder="Enter folder name" />
 					</div>
 					<input type="text" name="path" value="${path}" style="display: none;" />
 					<input type="submit" value="Create Folder" />
