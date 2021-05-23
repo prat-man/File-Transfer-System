@@ -1,14 +1,20 @@
 package in.pratanumandal.fts.util;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.util.Base64;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import javax.imageio.ImageIO;
 
 import org.springframework.security.access.AccessDeniedException;
 
+import in.pratanumandal.fts.bean.FtsConfig.Credentials.Credential;
 import in.pratanumandal.fts.filesystem.FileSystemRepository;
 
 public class CommonUtils {
@@ -68,6 +74,28 @@ public class CommonUtils {
 		String OS = System.getProperty("os.name").toLowerCase();
 		if (OS.contains("windows")) return new String[] {"bytes", "KiB", "MiB", "GiB", "TiB", "PiB"};
 		return new String[] {"bytes", "KB", "MB", "GB", "TB", "PB"};
+	}
+	
+	public static String getNameByUsername(String username) {
+		for (Credential credential : FtsConstants.CREDENTIALS) {
+			if (credential.getUsername().equals(username)) {
+				if (credential.getName() != null) {
+					return credential.getName();//.split("\\s|,")[0];
+				}
+				return username;
+			}
+		}
+		
+		return username;
+	}
+	
+	public static String imageToBase64(BufferedImage image) throws IOException {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		ImageIO.write(image, "PNG", out);
+		byte[] bytes = out.toByteArray();
+		
+		String base64String = Base64.getEncoder().encodeToString(bytes);
+		return "data:image/png;base64," + base64String;
 	}
 
 }

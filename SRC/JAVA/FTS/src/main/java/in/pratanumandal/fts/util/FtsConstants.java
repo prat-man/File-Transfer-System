@@ -1,6 +1,7 @@
 package in.pratanumandal.fts.util;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.swing.JFileChooser;
@@ -8,6 +9,8 @@ import javax.swing.JFileChooser;
 import in.pratanumandal.fts.bean.FtsConfig.Credentials.Credential;
 
 public class FtsConstants {
+	
+	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 	
 	public static String CONFIG_FILE = getDefaultConfigLocation();
 	
@@ -32,19 +35,6 @@ public class FtsConstants {
 	
 	private static String getDefaultSandboxLocation() {
 		return new JFileChooser().getFileSystemView().getDefaultDirectory().getAbsolutePath() + "/Sandbox";
-	}
-	
-	public static String getName(String username) {
-		for (Credential credential : FtsConstants.CREDENTIALS) {
-			if (credential.getUsername().equals(username)) {
-				if (credential.getName() != null) {
-					return credential.getName();//.split("\\s|,")[0];
-				}
-				return username;
-			}
-		}
-		
-		return username;
 	}
 	
 }

@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
@@ -42,7 +43,10 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import in.pratanumandal.fts.bean.SandboxedFile;
+import in.pratanumandal.fts.bean.SandboxedFileExtras;
 import in.pratanumandal.fts.exception.ForbiddenException;
 import in.pratanumandal.fts.exception.InvalidFileNameException;
 import in.pratanumandal.fts.exception.ResourceNotFoundException;
@@ -84,6 +88,7 @@ public class FtsController {
 		return "login";
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN', 'WRITER', 'READER')")
 	@GetMapping("/")
 	public String index(@PathParam("path") String path, Map<String, Object> model, HttpServletRequest request, Principal principal) throws IOException {
 		
@@ -97,6 +102,8 @@ public class FtsController {
 			logger.error("An error occurred when trying to access path: " + path);
 			throw new ResourceNotFoundException("The requested folder was not found on the server");
 		}
+		
+		SandboxedFile sandboxedFolder = new SandboxedFile(folder);
 		
 		File[] listOfFiles = folder.listFiles();
 		
@@ -145,25 +152,16 @@ public class FtsController {
 				}
 			}
 		}
-		
-		int fileCount = 0, folderCount = 0;
-		
-		for (File file : listOfFiles) {
-			if (file.isDirectory()) folderCount++;
-			else fileCount++;
-		}
-		
-		String size = CommonUtils.getFileSize(folder);
 
 		model.put("files", files);
 		
-		model.put("path", path);
+		model.put("path", sandboxedFolder.getPath());
 		
-		model.put("fileCount", fileCount);
+		model.put("fileCount", sandboxedFolder.getFileCount());
 		
-		model.put("folderCount", folderCount);
+		model.put("folderCount", sandboxedFolder.getFolderCount());
 		
-		model.put("size", size);
+		model.put("size", sandboxedFolder.getSize());
 		
 		if (request.isUserInRole("ADMIN")) model.put("admin", true);
 		else model.put("admin", false);
@@ -174,12 +172,36 @@ public class FtsController {
 		if (request.isUserInRole("READER")) model.put("reader", true);
 		else model.put("reader", false);
 		
-		String name = FtsConstants.getName(principal.getName());
+		String name = CommonUtils.getNameByUsername(principal.getName());
 		model.put("name", name);
 
 		return "index";
 	}
+	
+	@PreAuthorize("hasAnyRole('ADMIN', 'WRITER', 'READER')")
+	@GetMapping("/view")
+	public void viewFile(@PathParam("path") String path, HttpServletResponse response) throws IOException {
+		
+		path = validatePath(path);
 
+		File file = new File(FtsConstants.SANDBOX_FOLDER + "/" + path);
+		
+		SandboxedFileExtras sandboxedFile = new SandboxedFileExtras(file);
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		String responseString = objectMapper.writeValueAsString(sandboxedFile);
+		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		out.print(responseString);
+		out.flush();
+		
+		response.setStatus(200);
+	}
+
+	@PreAuthorize("hasAnyRole('ADMIN', 'WRITER', 'READER')")
 	@GetMapping("/download")
 	public void getFile(@PathParam("path") String path, HttpServletResponse response) throws IOException {
 		
@@ -221,6 +243,7 @@ public class FtsController {
 		}
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN', 'WRITER', 'READER')")
 	@GetMapping("/icon")
 	public void getIcon(@PathParam("path") String path, HttpServletResponse response) throws IOException {
 		

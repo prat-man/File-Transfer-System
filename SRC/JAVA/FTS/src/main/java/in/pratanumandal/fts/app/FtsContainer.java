@@ -10,6 +10,7 @@ import java.security.InvalidParameterException;
 
 import javax.xml.bind.JAXBException;
 
+import org.bytedeco.ffmpeg.global.avutil;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -31,6 +32,8 @@ public class FtsContainer implements WebServerFactoryCustomizer<ConfigurableServ
 	
 	@Override
 	public void customize(ConfigurableServletWebServerFactory factory) {
+		
+		avutil.av_log_set_level(avutil.AV_LOG_QUIET);
 		
 		File file = new File(FtsConstants.CONFIG_FILE);
 		

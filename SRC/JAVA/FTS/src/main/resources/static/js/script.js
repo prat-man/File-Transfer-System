@@ -41,12 +41,6 @@ $(function() {
 		complete : function(xhr) {
 			clearInterval(task);
 			
-			if (xhr.status === 200) {
-				alert("Upload Complete!");
-			}
-			else {
-				alert("Upload Failed!");
-			}
 			browser.unbind('click');
 			progressBar.css('display', 'none');
 			progressVal.css('display', 'none');
@@ -54,7 +48,12 @@ $(function() {
 			$('#fileUploadField').prop('disabled', false);
 			$('#folderUploadForm *').prop('disabled', false);
 			$('#createFolderForm *').prop('disabled', false);
-			location.reload();
+			
+			alertify.alert(xhr.status === 200 ? "Upload Completed!" : "Upload Failed!")
+				.set({title: "File Upload"})
+				.set('onok', function(closeEvent) {
+					location.reload();
+				});
 		}
 	});
 });
@@ -102,12 +101,6 @@ $(function() {
 		complete : function(xhr) {
 			clearInterval(task);
 			
-			if (xhr.status === 200) {
-				alert("Upload Complete!");
-			}
-			else {
-				alert("Upload Failed!");
-			}
 			browser.unbind('click');
 			progressBar.css('display', 'none');
 			progressVal.css('display', 'none');
@@ -115,7 +108,12 @@ $(function() {
 			$('#folderUploadField').prop('disabled', false);
 			$('#fileUploadForm *').prop('disabled', false);
 			$('#createFolderForm *').prop('disabled', false);
-			location.reload();
+			
+			alertify.alert(xhr.status === 200 ? "Upload Completed!" : "Upload Failed!")
+				.set({title: "Folder Upload"})
+				.set('onok', function(closeEvent) {
+					location.reload();
+				});
 		}
 	});
 });
@@ -136,7 +134,8 @@ $(function(){
 				location.reload();
 			},
 			error: function(data) {
-				alert(data.responseJSON.message);
+				alertify.alert(data.responseJSON.message)
+					.set({title: "Folder Creation Error"});
 			}
 		});
 	});
@@ -225,9 +224,53 @@ function isMobileDevice() {
 	return check;
 }
 
+// file or folder view
+function viewFile(filePath) {
+	$.ajax({
+		url: '/view?path=' + filePath,
+		type: 'GET',
+		success: function(data) {
+			alertify.alert(
+				((data.thumbnail) ? "<div class=\"thumbnail\"><img src=\"" + data.thumbnail + "\" class=\"responsive\" /></div><br>" : "") +
+				"<div class=\"view-table\">" +
+					"<table class=\"slim\">" +
+						"<tr><td class=\"sticky\">Name</td><td>" + data.name + "</td></tr>" +
+						"<tr><td class=\"sticky\">Path</td><td>" + data.path.substring(0, data.path.length - data.name.length) + "</td></tr>" +
+						"<tr><td class=\"sticky\">Size</td><td>" + data.size + "</td></tr>" +
+						((data.directory) ? "<tr><td class=\"sticky\">Folders</td><td>" + data.folderCount + "</td></tr>" : "") +
+						((data.directory) ? "<tr><td class=\"sticky\">Files</td><td>" + data.fileCount + "</td></tr>" : "") +
+						"<tr><td class=\"sticky\">Creation time</td><td>" + data.creationTime + "</td></tr>" +
+						"<tr><td class=\"sticky\">Modification time</td><td>" + data.lastModifiedTime + "</td></tr>" +
+						"<tr><td class=\"sticky\">Last accessed</td><td>" + data.lastAccessTime + "</td></tr>" +
+					"</table>" +
+				"</div>"
+				)
+				.set({title: "Properties"});
+		},
+		error: function(data) {
+			alertify.alert(data)
+				.set({title: "View Error"});
+		}
+	});
+	
+	/*alertify.alert(
+			"<div class=\"view-table\">" +
+				"<table class=\"slim\">" +
+					"<tr><td class=\"sticky header\">File name</td><td>" + fileName + "</td></tr>" +
+					"<tr><td class=\"sticky header\">File path</td><td>" + filePath.substring(0, filePath.length - fileName.length) + "</td></tr>" +
+					"<tr><td class=\"sticky header\">File size</td><td>" + size + "</td></tr>" +
+					"<tr><td class=\"sticky header\">Creation time</td><td>" + creationTime + "</td></tr>" +
+					"<tr><td class=\"sticky header\">Modification time</td><td>" + lastModifiedTime + "</td></tr>" +
+					"<tr><td class=\"sticky header\">Last accessed</td><td>" + lastAccessTime + "</td></tr>" +
+				"</table>" +
+			"</div>"
+			)
+			.set({title: "Properties"});*/
+}
+
 // file or folder delete
 function deleteFile(fileName, filePath) {
-	if (confirm("Are you sure you want to delete \"" + fileName + "\"?")) {		
+	if (confirm("Are you sure you want to delete \"" + fileName + "\"?")) {
 		$.ajax({
 			url: '/delete?path=' + filePath,
 			type: 'DELETE',
@@ -235,8 +278,11 @@ function deleteFile(fileName, filePath) {
 				location.reload();
 			},
 			error: function(data) {
-				alert(data.responseJSON.message);
-				location.reload();
+				alertify.alert(data.responseJSON.message)
+					.set({title: "Delete Error"})
+					.set('onok', function(closeEvent) {
+						location.reload();
+					});
 			}
 		});
 	}

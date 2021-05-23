@@ -174,12 +174,35 @@ tr:nth-child(even) td.sticky {
 	background-color: #F2F2F2EE;
 }
 
-td.sticky {
+td.sticky:nth-child(4) {
+	right: 100px;
+}
+
+td.sticky:nth-child(5) {
 	right: 50px;
+}
+
+td:first-child.sticky {
+	left: 0;
 }
 
 td:last-child.sticky {
 	right: 0;
+}
+
+.view-table {
+	width: 100%;
+	overflow: auto;
+}
+
+.thumbnail {
+	width: 100%;
+	text-align: center;
+}
+
+.responsive {
+	max-width: 100%;
+	height: auto;
 }
 
 a, a:link, a:visited {
@@ -490,4 +513,34 @@ span.heading {
 .login-error {
 	color: #FF3333;
 	margin-bottom: 10px;
+}
+
+/** ALERTIFY **/
+
+.alertify .ajs-body .ajs-content {
+	padding: 20px 0 20px 0;
+}
+
+.alertify .ajs-commands {
+	margin: -11px 14px 0 0;
+}
+
+.alertify .ajs-dialog {
+	border-radius: 3px;
+	overflow: hidden;
+}
+
+.alertify .ajs-header {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	font-size: 16px;
+	background-color: #F2F2F2;
+	border-bottom: 1px solid #CCCCCC;
+	padding: 18px 50px 16px 24px;
+}
+
+.alertify .ajs-footer {
+	background-color: #F2F2F2;
+	border-top: 1px solid #CCCCCC;
 }

@@ -16,6 +16,10 @@
 
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery.form.min.js"></script>
+	<script src="js/alertify.min.js"></script>
+	
+	<link rel="stylesheet" href="css/alertify.min.css" />
+	<!-- <link rel="stylesheet" href="css/default.min.css" /> -->
 	
 	<link href="css/style.css" rel="stylesheet" type="text/css">
 </head>
@@ -119,6 +123,11 @@
 								<td class="pad-right right">
 									<span style="white-space: nowrap;">${file.getSize()}</span>
 								</td>
+								<td class="pad-left pad-right sticky">
+									<a onclick="viewFile('${file.getPath()}')">
+										<img src="img/view.svg" alt="View" width="20px" class="img-button" />
+									</a>
+								</td>
 								<c:if test="${admin}">
 								<td class="pad-left pad-right sticky">
 									<a onclick="deleteFile('${file.getName()}', '${file.getEncodedPath()}')">
@@ -127,7 +136,7 @@
 								</td>
 								</c:if>
 								<td class="pad-left sticky">
-									<a href="/download?path=${file.getEncodedPath()}">
+									<a href="/download?path=${file.getEncodedPath()}" target="_BLANK">
 										<img src="img/download.svg" alt="Download" width="20px" class="img-button" />
 									</a>
 								</td>
