@@ -54,7 +54,6 @@ public class ThumbnailManager {
 						grabber.stop();
 						
 						BufferedImage thumbnailImage = Thumbnails.of(frameImage).size(500, 200).asBufferedImage();
-						
 						return CommonUtils.imageToBase64JPG(thumbnailImage);
 					}
 					catch (Exception e) {

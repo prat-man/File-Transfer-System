@@ -1,5 +1,7 @@
 package in.pratanumandal.fts.util;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -91,8 +93,16 @@ public class CommonUtils {
 	}
 	
 	public static String imageToBase64JPG(BufferedImage image) throws IOException {
+		BufferedImage opaqueImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
+		
+		Graphics2D g2d = opaqueImage.createGraphics();
+		g2d.setColor(Color.WHITE);
+		g2d.fillRect(0, 0, opaqueImage.getWidth(), opaqueImage.getHeight());
+		g2d.drawImage(image, 0, 0, null);
+		g2d.dispose();
+		
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		ImageIO.write(image, "JPG", out);
+		ImageIO.write(opaqueImage, "JPG", out);
 		byte[] bytes = out.toByteArray();
 		
 		String base64String = Base64.getEncoder().encodeToString(bytes);
