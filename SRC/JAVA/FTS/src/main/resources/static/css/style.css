@@ -174,16 +174,16 @@ tr:nth-child(even) td.sticky {
 	background-color: #F2F2F2EE;
 }
 
-td.sticky:nth-child(4) {
+td:first-child.sticky {
+	left: 0;
+}
+
+td.sticky:nth-last-child(3) {
 	right: 100px;
 }
 
-td.sticky:nth-child(5) {
+td.sticky:nth-last-child(2) {
 	right: 50px;
-}
-
-td:first-child.sticky {
-	left: 0;
 }
 
 td:last-child.sticky {
