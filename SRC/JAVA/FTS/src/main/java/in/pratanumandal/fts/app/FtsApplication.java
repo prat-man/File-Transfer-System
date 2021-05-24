@@ -12,17 +12,17 @@ import org.springframework.context.annotation.ComponentScan;
 import in.pratanumandal.fts.util.FtsConstants;
 
 @SpringBootApplication
-@ComponentScan(basePackages={"in.pratanumandal.fts"})
+@ComponentScan(basePackages = { "in.pratanumandal.fts" })
 public class FtsApplication {
 
 	public static void main(String[] args) {
 		if (args.length > 0) {
 			FtsConstants.CONFIG_FILE = new File(args[0]).getAbsolutePath();
 		}
-		
+
 		SpringApplication.run(FtsApplication.class);
 	}
-	
+
 	@Bean
 	public Logger getLogger() {
 		return LoggerFactory.getLogger(FtsApplication.class);

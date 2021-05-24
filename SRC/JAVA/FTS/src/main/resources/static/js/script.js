@@ -270,22 +270,24 @@ function viewFile(filePath) {
 
 // file or folder delete
 function deleteFile(fileName, filePath) {
-	if (confirm("Are you sure you want to delete \"" + fileName + "\"?")) {
-		$.ajax({
-			url: '/delete?path=' + filePath,
-			type: 'DELETE',
-			success: function(data) {
-				location.reload();
-			},
-			error: function(data) {
-				alertify.alert(data.responseJSON.message)
-					.set({title: "Delete Error"})
-					.set('onok', function(closeEvent) {
-						location.reload();
-					});
-			}
-		});
-	}
+	alertify.confirm("Are you sure you want to delete <span class=\"file-name\">" + fileName + "</span>?",
+		function() {
+			$.ajax({
+				url: '/delete?path=' + filePath,
+				type: 'DELETE',
+				success: function(data) {
+					location.reload();
+				},
+				error: function(data) {
+					alertify.alert(data.responseJSON.message)
+						.set({title: "Delete Error"})
+						.set('onok', function(closeEvent) {
+							location.reload();
+						});
+				}
+			});
+		})
+		.set({title: "Delete"});
 }
 
 // ping every 5 minutes to keep session alive

@@ -12,6 +12,7 @@
 	
 	<link rel="icon" type="image/x-icon" href="favicon.ico">
 	
+	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<script src="js/jquery.min.js"></script>
@@ -124,7 +125,7 @@
 									<span style="white-space: nowrap;">${file.getSize()}</span>
 								</td>
 								<td class="pad-left pad-right sticky">
-									<a onclick="viewFile('${file.getPath()}')">
+									<a onclick="viewFile('${file.getEncodedPath()}')">
 										<img src="img/view.svg" alt="View" width="20px" class="img-button" />
 									</a>
 								</td>

@@ -9,6 +9,7 @@
 	
 	<link rel="icon" type="image/x-icon" href="favicon.ico">
 	
+	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<script src="js/jquery.min.js"></script>
@@ -57,7 +58,7 @@
 					<div class="center responsive">
 						<div class="login-container">
 							<c:url value="/login" var="loginUrl" />
-							<form action="${loginUrl}" method="post">
+							<form action="${loginUrl}" method="post" accept-charset="utf-8">
 								<div class="floating-input">
 								  <input type="text" id="username" name="username" required />
 								  <span class="floating-label">Username</span>

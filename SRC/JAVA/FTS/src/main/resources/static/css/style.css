@@ -511,7 +511,7 @@ span.heading {
 }
 
 .login-error {
-	color: #FF3333;
+	color: #C82B2B;
 	margin-bottom: 10px;
 }
 
@@ -519,6 +519,11 @@ span.heading {
 
 .alertify .ajs-body .ajs-content {
 	padding: 20px 0 20px 0;
+}
+
+.alertify .ajs-body .ajs-content .file-name {
+	color: #C82B2B;
+	word-break: break-all;
 }
 
 .alertify .ajs-commands {
@@ -543,4 +548,12 @@ span.heading {
 .alertify .ajs-footer {
 	background-color: #F2F2F2;
 	border-top: 1px solid #CCCCCC;
+}
+
+.alertify .ajs-cancel {
+	background-color: #CD5C5C;
+}
+
+.alertify .ajs-cancel:hover {
+	background-color: #E66868;
 }
