@@ -91,11 +91,11 @@ public class CommonUtils {
 	
 	public static String imageToBase64(BufferedImage image) throws IOException {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		ImageIO.write(image, "PNG", out);
+		ImageIO.write(image, "JPG", out);
 		byte[] bytes = out.toByteArray();
 		
 		String base64String = Base64.getEncoder().encodeToString(bytes);
-		return "data:image/png;base64," + base64String;
+		return "data:image/jpeg;base64," + base64String;
 	}
 
 }
