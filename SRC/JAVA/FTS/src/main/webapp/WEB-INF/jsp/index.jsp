@@ -112,7 +112,7 @@
 					<table>
 						<c:forEach items="${files}" var="file">
 							<tr>
-								<td><img src="/icon?path=${file.getEncodedPath()}" /></td>
+								<td><img src="${file.getIcon()}" width="20px" /></td>
 								<c:choose>
 									<c:when test="${file.isDirectory()}">
 										<td width="99%"><a href="?path=${file.getEncodedPath()}">${file.getName()}</a></td>

@@ -130,6 +130,12 @@
 			<artifactId>ealvatag</artifactId>
 			<version>0.4.6</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.tika</groupId>
+		    <artifactId>tika-core</artifactId>
+		    <version>1.26</version>
+		</dependency>
 	</dependencies>
 
 	<build>

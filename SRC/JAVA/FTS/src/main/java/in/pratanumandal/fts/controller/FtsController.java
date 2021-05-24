@@ -1,7 +1,5 @@
 package in.pratanumandal.fts.controller;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -19,11 +17,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.Icon;
-import javax.swing.filechooser.FileSystemView;
 import javax.websocket.server.PathParam;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -238,43 +233,6 @@ public class FtsController {
 				is.close();
 			} catch (IOException ex) {
 				logger.error("An error occurred when trying to download file: " + path);
-				throw new RuntimeException("IOError writing file to output stream");
-			}
-		}
-	}
-	
-	@PreAuthorize("hasAnyRole('ADMIN', 'WRITER', 'READER')")
-	@GetMapping("/icon")
-	public void getIcon(@PathParam("path") String path, HttpServletResponse response) throws IOException {
-		
-		path = validatePath(path);
-
-		File file = new File(FtsConstants.SANDBOX_FOLDER + "/" + path);
-		
-		if (!file.exists()) {
-			logger.error("An error occurred when trying to access path: " + path);
-			throw new ResourceNotFoundException("The requested icon was not found on the server");
-		}
-
-		Icon icon = FileSystemView.getFileSystemView().getSystemIcon(file);
-
-		if (icon != null) {
-			BufferedImage bi = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(),
-					BufferedImage.TYPE_INT_ARGB);
-
-			Graphics2D g2d = bi.createGraphics();
-			icon.paintIcon(null, g2d, 0, 0);
-			g2d.dispose();
-
-			response.setContentType("image/png");
-			response.setHeader("Content-Transfer-Encoding", "binary");
-			response.setHeader("Content-Disposition", "attachment; filename=\"icon.png\"");
-
-			try {
-				ImageIO.write(bi, "png", response.getOutputStream());
-				response.flushBuffer();
-			} catch (IOException ex) {
-				logger.error("An error occurred when trying to access icon for path: " + path);
 				throw new RuntimeException("IOError writing file to output stream");
 			}
 		}

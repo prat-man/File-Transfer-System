@@ -10,6 +10,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import in.pratanumandal.fts.exception.ForbiddenException;
 import in.pratanumandal.fts.util.CommonUtils;
 import in.pratanumandal.fts.util.FtsConstants;
+import in.pratanumandal.fts.util.IconManager;
 
 public class SandboxedFile {
 
@@ -17,6 +18,8 @@ public class SandboxedFile {
 	protected String path;
 	protected String size;
 	
+	protected String icon;
+
 	protected boolean directory;
 	protected int fileCount;
 	protected int folderCount;
@@ -29,6 +32,9 @@ public class SandboxedFile {
 		this.name = file.getName();
 		this.path = file.getAbsolutePath().substring(FtsConstants.SANDBOX_FOLDER.length()).replaceAll("\\\\", "/");
 		this.size = CommonUtils.getFileSize(file);
+		
+		this.icon = IconManager.getIcon(file);
+		
 		this.directory = file.isDirectory();
 		
 		if (this.directory) {
@@ -79,6 +85,10 @@ public class SandboxedFile {
 	public String getSize() {
 		return size;
 	}
+	
+	public String getIcon() {
+		return icon;
+	}
 
 	public boolean isDirectory() {
 		return directory;
@@ -106,9 +116,9 @@ public class SandboxedFile {
 
 	@Override
 	public String toString() {
-		return "SandboxedFile [name=" + name + ", path=" + path + ", size=" + size + ", directory=" + directory
-				+ ", fileCount=" + fileCount + ", folderCount=" + folderCount + ", creationTime=" + creationTime
-				+ ", lastModifiedTime=" + lastModifiedTime + ", lastAccessTime=" + lastAccessTime + "]";
+		return "SandboxedFile [name=" + name + ", path=" + path + ", size=" + size + ", icon=" + icon + ", directory="
+				+ directory + ", fileCount=" + fileCount + ", folderCount=" + folderCount + ", creationTime="
+				+ creationTime + ", lastModifiedTime=" + lastModifiedTime + ", lastAccessTime=" + lastAccessTime + "]";
 	}
 	
 }

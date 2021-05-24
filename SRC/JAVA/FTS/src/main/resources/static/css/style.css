@@ -542,7 +542,7 @@ span.heading {
 	font-size: 16px;
 	background-color: #F2F2F2;
 	border-bottom: 1px solid #CCCCCC;
-	padding: 18px 50px 16px 24px;
+	padding: 18px 60px 16px 24px;
 }
 
 .alertify .ajs-footer {
@@ -556,4 +556,18 @@ span.heading {
 
 .alertify .ajs-cancel:hover {
 	background-color: #E66868;
+}
+
+.alertify.ajs-closable .ajs-commands button,
+.alertify .ajs-footer .ajs-button {
+	outline: none;
+}
+
+.alertify.ajs-closable .ajs-commands button.ajs-close {
+	padding: 15px;
+	border-radius: 100%;
+}
+
+.alertify.ajs-closable .ajs-commands button.ajs-close:hover {
+	background-color: #DDDDDD;
 }

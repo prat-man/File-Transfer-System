@@ -4,8 +4,6 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import javax.swing.JFileChooser;
-
 import in.pratanumandal.fts.bean.FtsConfig.Credentials.Credential;
 
 public class FtsConstants {
@@ -34,7 +32,7 @@ public class FtsConstants {
 	}
 	
 	private static String getDefaultSandboxLocation() {
-		return new JFileChooser().getFileSystemView().getDefaultDirectory().getAbsolutePath() + "/Sandbox";
+		return System.getProperty("user.home") + "/Sandbox";
 	}
 	
 }

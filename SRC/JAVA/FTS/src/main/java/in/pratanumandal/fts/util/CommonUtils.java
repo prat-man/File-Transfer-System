@@ -12,6 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.imageio.ImageIO;
 
+import org.apache.tika.Tika;
 import org.springframework.security.access.AccessDeniedException;
 
 import in.pratanumandal.fts.bean.FtsConfig.Credentials.Credential;
@@ -89,13 +90,27 @@ public class CommonUtils {
 		return username;
 	}
 	
-	public static String imageToBase64(BufferedImage image) throws IOException {
+	public static String imageToBase64JPG(BufferedImage image) throws IOException {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		ImageIO.write(image, "JPG", out);
 		byte[] bytes = out.toByteArray();
 		
 		String base64String = Base64.getEncoder().encodeToString(bytes);
 		return "data:image/jpeg;base64," + base64String;
+	}
+	
+	public static String imageToBase64PNG(BufferedImage image) throws IOException {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		ImageIO.write(image, "PNG", out);
+		byte[] bytes = out.toByteArray();
+		
+		String base64String = Base64.getEncoder().encodeToString(bytes);
+		return "data:image/png;base64," + base64String;
+	}
+	
+	public static String getMimeType(File file) throws IOException {
+		Tika tika = new Tika();
+		return tika.detect(file).split(";")[0];
 	}
 
 }
