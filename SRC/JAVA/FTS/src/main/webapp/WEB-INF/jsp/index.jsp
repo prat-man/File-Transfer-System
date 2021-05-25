@@ -112,16 +112,20 @@
 					<table>
 						<c:forEach items="${files}" var="file">
 							<tr>
-								<td><img src="${file.getIcon()}" width="20px" /></td>
-								<c:choose>
-									<c:when test="${file.isDirectory()}">
-										<td width="99%"><a href="?path=${file.getEncodedPath()}">${file.getName()}</a></td>
-									</c:when>
-									<c:otherwise>
-										<td width="99%"><c:out value="${file.getName()}" /></td>
-									</c:otherwise>
-								</c:choose>
-								<td class="pad-right right">
+								<td class="pad-right sticky">
+									<img src="${file.getIcon()}" width="20px" />
+								</td>
+								<td class="no-pad-left" width="99%">
+									<c:choose>
+										<c:when test="${file.isDirectory()}">
+											<a href="?path=${file.getEncodedPath()}">${file.getName()}</a>
+										</c:when>
+										<c:otherwise>
+											<c:out value="${file.getName()}" />
+										</c:otherwise>
+									</c:choose>
+								</td>
+								<td class="pad-right right size">
 									<span style="white-space: nowrap;">${file.getSize()}</span>
 								</td>
 								<td class="pad-left pad-right sticky">

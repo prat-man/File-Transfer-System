@@ -156,6 +156,14 @@ th.pad-right, td.pad-right {
 	padding-right: 15px;
 }
 
+th.no-pad-left, td.no-pad-left {
+	padding-left: 0;
+}
+
+th.no-pad-right, td.no-pad-right {
+	padding-right: 0;
+}
+
 tr {
 	background-color: #FFFFFF;
 }

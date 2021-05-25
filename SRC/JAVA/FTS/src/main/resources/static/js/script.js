@@ -202,6 +202,14 @@ $(function(){
 	}
 });
 
+// show size switch
+$(function(){
+	// do not sizes for mobile devices
+	if (isMobileDevice()) {
+		$('.size').remove();
+	}
+});
+
 // check if folder upload is supported
 function isFolderUploadSupported() {
 	var element = document.createElement('input');
@@ -252,20 +260,6 @@ function viewFile(filePath) {
 				.set({title: "View Error"});
 		}
 	});
-	
-	/*alertify.alert(
-			"<div class=\"view-table\">" +
-				"<table class=\"slim\">" +
-					"<tr><td class=\"sticky header\">File name</td><td>" + fileName + "</td></tr>" +
-					"<tr><td class=\"sticky header\">File path</td><td>" + filePath.substring(0, filePath.length - fileName.length) + "</td></tr>" +
-					"<tr><td class=\"sticky header\">File size</td><td>" + size + "</td></tr>" +
-					"<tr><td class=\"sticky header\">Creation time</td><td>" + creationTime + "</td></tr>" +
-					"<tr><td class=\"sticky header\">Modification time</td><td>" + lastModifiedTime + "</td></tr>" +
-					"<tr><td class=\"sticky header\">Last accessed</td><td>" + lastAccessTime + "</td></tr>" +
-				"</table>" +
-			"</div>"
-			)
-			.set({title: "Properties"});*/
 }
 
 // file or folder delete
