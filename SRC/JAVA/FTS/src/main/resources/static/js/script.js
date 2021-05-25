@@ -202,14 +202,6 @@ $(function(){
 	}
 });
 
-// show size switch
-$(function(){
-	// do not sizes for mobile devices
-	if (isMobileDevice()) {
-		$('.size').remove();
-	}
-});
-
 // check if folder upload is supported
 function isFolderUploadSupported() {
 	var element = document.createElement('input');

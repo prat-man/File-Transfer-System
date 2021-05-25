@@ -112,10 +112,10 @@
 					<table>
 						<c:forEach items="${files}" var="file">
 							<tr>
-								<td class="pad-right sticky">
+								<td class="sticky">
 									<img src="${file.getIcon()}" width="20px" />
 								</td>
-								<td class="no-pad-left" width="99%">
+								<td width="99%" class="slim-left">
 									<c:choose>
 										<c:when test="${file.isDirectory()}">
 											<a href="?path=${file.getEncodedPath()}">${file.getName()}</a>
@@ -125,22 +125,22 @@
 										</c:otherwise>
 									</c:choose>
 								</td>
-								<td class="pad-right right size">
+								<td class="right sticky size">
 									<span style="white-space: nowrap;">${file.getSize()}</span>
 								</td>
-								<td class="pad-left pad-right sticky">
+								<td class="sticky">
 									<a onclick="viewFile('${file.getEncodedPath()}')">
 										<img src="img/view.svg" alt="View" width="20px" class="img-button" />
 									</a>
 								</td>
 								<c:if test="${admin}">
-								<td class="pad-left pad-right sticky">
+								<td class="sticky">
 									<a onclick="deleteFile('${file.getName()}', '${file.getEncodedPath()}')">
 										<img src="img/trash.svg" alt="Delete" width="20px" class="img-button" />
 									</a>
 								</td>
 								</c:if>
-								<td class="pad-left sticky">
+								<td class="sticky">
 									<a href="/download?path=${file.getEncodedPath()}" target="_BLANK">
 										<img src="img/download.svg" alt="Download" width="20px" class="img-button" />
 									</a>
@@ -224,7 +224,7 @@
 			
 			<div class="bordered" style="flex-grow: 1; flex-basis: 0;">
 				<span class="heading">Folder Information</span>
-				<table class="slim">
+				<table>
 					<tr>
 						<td>Folders</td>
 						<td>${folderCount}</td>

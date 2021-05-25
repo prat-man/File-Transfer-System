@@ -133,11 +133,7 @@ table {
 
 th, td {
 	text-align: left;
-	padding: 8px;
-}
-
-.slim th, .slim td {
-	padding: 7px;
+	padding: 10px;
 }
 
 th:first-child, td:first-child {
@@ -148,20 +144,12 @@ th:last-child, td:last-child {
 	padding-right: 15px;
 }
 
-th.pad-left, td.pad-left {
-	padding-left: 15px;
+th.slim-left, td.slim-left {
+	padding-left: 5px;
 }
 
-th.pad-right, td.pad-right {
-	padding-right: 15px;
-}
-
-th.no-pad-left, td.no-pad-left {
-	padding-left: 0;
-}
-
-th.no-pad-right, td.no-pad-right {
-	padding-right: 0;
+th.slim-right, td.slim-right {
+	padding-right: 5px;
 }
 
 tr {
@@ -182,20 +170,30 @@ tr:nth-child(even) td.sticky {
 	background-color: #F2F2F2EE;
 }
 
-td:first-child.sticky {
-	left: 0;
+td.sticky:nth-last-child(4) {
+	right: 125px;
 }
 
 td.sticky:nth-last-child(3) {
-	right: 100px;
+	right: 85px;
 }
 
 td.sticky:nth-last-child(2) {
-	right: 50px;
+	right: 45px;
 }
 
 td:last-child.sticky {
 	right: 0;
+}
+
+td:first-child.sticky {
+	left: 0;
+}
+
+@media only screen and (max-width: 700px) {
+	.size {
+		display: none;
+	}
 }
 
 .view-table {
