@@ -4,12 +4,23 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
 public class IconManager {
 	
+	private static final int CACHE_VALIDITY = 3600000;
+	
+	private static final Map<String, CachedIcon> ICON_CACHE = new HashMap<>();
+	
 	public static String getIcon(File file) {
+		if (file == null) return null;
+		
+		CachedIcon cachedIcon = ICON_CACHE.get(file.getAbsolutePath());
+		if (cachedIcon != null && !cachedIcon.isExpired()) return cachedIcon.getIcon();
+		
 		String mimeType = null;
 		
 		if (file.isDirectory()) {
@@ -46,7 +57,10 @@ public class IconManager {
 			
 			if (in != null) {
 				BufferedImage image = ImageIO.read(in);
-				return CommonUtils.imageToBase64PNG(image);
+				String icon = CommonUtils.imageToBase64PNG(image);
+				
+				ICON_CACHE.put(file.getAbsolutePath(), new CachedIcon(icon));
+				return icon;
 			}
 		}
 		catch (IOException e) {
@@ -54,6 +68,26 @@ public class IconManager {
 		}
 		
 		return null;
+	}
+	
+	private static class CachedIcon {
+		
+		private String icon;
+		private long time;
+		
+		public CachedIcon(String icon) {
+			this.icon = icon;
+			this.time = System.currentTimeMillis();
+		}
+		
+		public String getIcon() {
+			return icon;
+		}
+
+		public boolean isExpired() {
+			return System.currentTimeMillis() - time > CACHE_VALIDITY;
+		}
+		
 	}
 
 }

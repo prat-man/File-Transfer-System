@@ -3,6 +3,8 @@ package in.pratanumandal.fts.util;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.Frame;
@@ -18,7 +20,16 @@ import net.coobird.thumbnailator.Thumbnails;
 
 public class ThumbnailManager {
 	
+	private static final int CACHE_VALIDITY = 600000;
+	
+	private static final Map<String, CachedThumbnail> THUMBNAIL_CACHE = new HashMap<>();
+	
 	public static String getThumbnail(File file) {
+		if (file == null) return null;
+		
+		CachedThumbnail cachedThumbnail = THUMBNAIL_CACHE.get(file.getAbsolutePath());
+		if (cachedThumbnail != null && !cachedThumbnail.isExpired()) return cachedThumbnail.getThumbnail();
+		
 		if (file.exists() && !file.isDirectory()) {
 			String mimeType = null;
 			
@@ -34,7 +45,10 @@ public class ThumbnailManager {
 		        if (type.equals("image")) {
 					try {
 						BufferedImage thumbnailImage = Thumbnails.of(file).size(500, 200).asBufferedImage();
-						return CommonUtils.imageToBase64JPG(thumbnailImage);
+						String thumbnail = CommonUtils.imageToBase64JPG(thumbnailImage);
+						
+						THUMBNAIL_CACHE.put(file.getAbsolutePath(), new CachedThumbnail(thumbnail));
+						return thumbnail;
 					}
 					catch (Exception e) {
 						// DO NOTHING
@@ -54,7 +68,10 @@ public class ThumbnailManager {
 						grabber.stop();
 						
 						BufferedImage thumbnailImage = Thumbnails.of(frameImage).size(500, 200).asBufferedImage();
-						return CommonUtils.imageToBase64JPG(thumbnailImage);
+						String thumbnail = CommonUtils.imageToBase64JPG(thumbnailImage);
+						
+						THUMBNAIL_CACHE.put(file.getAbsolutePath(), new CachedThumbnail(thumbnail));
+						return thumbnail;
 					}
 					catch (Exception e) {
 						// DO NOTHING
@@ -73,7 +90,10 @@ public class ThumbnailManager {
 								Artwork artwork = optionalArtwork.get();
 				            	BufferedImage artworkImage = (BufferedImage) artwork.getImage();
 				            	BufferedImage thumbnailImage = Thumbnails.of(artworkImage).size(500, 200).asBufferedImage();
-								return CommonUtils.imageToBase64JPG(thumbnailImage);
+								String thumbnail = CommonUtils.imageToBase64JPG(thumbnailImage);
+								
+								THUMBNAIL_CACHE.put(file.getAbsolutePath(), new CachedThumbnail(thumbnail));
+								return thumbnail;
 							}
 						}
 					} catch (Exception e) {
@@ -84,7 +104,28 @@ public class ThumbnailManager {
 			}
 		}
 		
+		THUMBNAIL_CACHE.put(file.getAbsolutePath(), new CachedThumbnail(null));
 		return null;
+	}
+	
+	private static class CachedThumbnail {
+		
+		private String thumbnail;
+		private long time;
+		
+		public CachedThumbnail(String thumbnail) {
+			this.thumbnail = thumbnail;
+			this.time = System.currentTimeMillis();
+		}
+
+		public String getThumbnail() {
+			return thumbnail;
+		}
+		
+		public boolean isExpired() {
+			return System.currentTimeMillis() - time > CACHE_VALIDITY;
+		}
+		
 	}
 
 }

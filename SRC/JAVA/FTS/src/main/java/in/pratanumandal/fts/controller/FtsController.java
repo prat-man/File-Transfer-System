@@ -98,7 +98,7 @@ public class FtsController {
 			throw new ResourceNotFoundException("The requested folder was not found on the server");
 		}
 		
-		SandboxedFile sandboxedFolder = new SandboxedFile(folder);
+		SandboxedFileExtras sandboxedFolder = new SandboxedFileExtras(folder);
 		
 		File[] listOfFiles = folder.listFiles();
 		
